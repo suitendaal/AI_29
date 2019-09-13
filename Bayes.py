@@ -14,17 +14,17 @@ class Bayes:
         sum_observation = 0
         for i in range(len(self.hypos)):
             sum_observation += self.priors[i] * self.likelihood(observation, self.hypos[i])
-        return round(sum_observation, 3)
+        return sum_observation
 
     def single_posterior_update(self, observation, prior_probabilities):
         posterior_probs = []
         for h in self.hypos:
-            posterior_probs.append(round(self.likelihood(observation, h)*prior_probabilities[self.hypos.index(h)]
-                /self.norm_constant(observation),3))
+            posterior_probs.append(self.likelihood(observation, h)*prior_probabilities[self.hypos.index(h)]
+                /self.norm_constant(observation))
         return posterior_probs
 
     def compute_posterior(self, observation):
-        probabilities = [1]*len(self.priors)
+        probabilities = self.priors
         for i in range(len(observation)):
             iteration = self.single_posterior_update(observation[i], self.priors)
             probabilities = np.multiply(probabilities, iteration)

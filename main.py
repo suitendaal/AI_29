@@ -12,7 +12,8 @@ if __name__ == '__main__':
     hyposArcher = ["Beginner", "Intermediate", "Advanced", "Expert"]
     priorsArcher = [0.25, 0.25, 0.25, 0.25]
     obsArcher = ["Yellow", "Red", "Blue", "Black", "White"]
-    likeliArcher = [[0.05, 0.1, 0.4, 0.25, 0.2],[0.1, 0.2, 0.4, 0.2, 0.1],[0.2, 0.4, 0.25, 0.1, 0.05],[0.3, 0.5, 0.125, 0.05, 0.025]]
+    likeliArcher = [[0.05, 0.1, 0.4, 0.25, 0.2],[0.1, 0.2, 0.4, 0.2, 0.1],[0.2, 0.4, 0.25, 0.1, 0.05],
+                    [0.3, 0.5, 0.125, 0.05, 0.025]]
 
     b = Bayes(hypos, priors, obs, likeli)
     l = b.likelihood("chocolate", "Bowl1")
@@ -23,7 +24,6 @@ if __name__ == '__main__':
     print("vanilla - posterior: %s" % p_1)
     p_2 = b.compute_posterior(["chocolate", "vanilla"])
     print("chocolate, vanilla - posterior: %s" % p_2)
-
 
     single_post_prob_choc = b.single_posterior_update("chocolate", priors);
     print("Posterior probabilities for chocolate is: %s" % single_post_prob_choc)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     print("Test environment ended")
     print(); print(); print();
     print("Deliverables assignment 1:")
-    print(b.single_posterior_update("vanilla", priors)[0])
+    print(round(b.single_posterior_update("vanilla", priors)[0],3))
     print(b.compute_posterior(["vanilla", "chocolate"])[1])
     print(a.compute_posterior(["Yellow", "White", "Blue", "Red", "Red", "Blue"])[1])
     print(hyposArcher[np.argmax(a.compute_posterior(["Yellow", "White", "Blue", "Red", "Red", "Blue"]))])
