@@ -1,0 +1,9 @@
+1,1,0.01639344262295082,SimpleAgent@2,(Offer  bid:Bid[Food: Finger-Food, Drinks: Non-Alcoholic, Location: Your Dorm, Invitations: Plain, Music: MP3, Cleanup: Special Equiment])
+1,2,0.01639344262295082,SimpleAgent@3,(Offer  bid:Bid[Food: Chips and Nuts, Drinks: Beer Only, Location: Party Tent, Invitations: Photo, Music: Band, Cleanup: Water and Soap])
+2,1,0.03278688524590164,SimpleAgent@2,(Offer  bid:Bid[Food: Chips and Nuts, Drinks: Non-Alcoholic, Location: Your Dorm, Invitations: Custom, Printed, Music: MP3, Cleanup: Hired Help])
+2,2,0.03278688524590164,SimpleAgent@3,(Offer  bid:Bid[Food: Handmade Food, Drinks: Beer Only, Location: Party Tent, Invitations: Photo, Music: Band, Cleanup: Specialized Materials])
+3,1,0.04918032786885246,SimpleAgent@2,(Offer  bid:Bid[Food: Finger-Food, Drinks: Non-Alcoholic, Location: Ballroom, Invitations: Custom, Printed, Music: Band, Cleanup: Water and Soap])
+3,2,0.04918032786885246,SimpleAgent@3,(Offer  bid:Bid[Food: Catering, Drinks: Catering, Location: Your Dorm, Invitations: Custom, Printed, Music: Band, Cleanup: Hired Help])
+4,1,0.06557377049180328,SimpleAgent@2,(Offer  bid:Bid[Food: Finger-Food, Drinks: Handmade Cocktails, Location: Party Tent, Invitations: Plain, Music: Band, Cleanup: Water and Soap])
+4,2,0.06557377049180328,SimpleAgent@3,(Accept  bid:Bid[Food: Finger-Food, Drinks: Handmade Cocktails, Location: Party Tent, Invitations: Plain, Music: Band, Cleanup: Water and Soap])
+agreement,Bid[Food: Finger-Food, Drinks: Handmade Cocktails, Location: Party Tent, Invitations: Plain, Music: Band, Cleanup: Water and Soap],0.5508333333333333,0.8235504957330047
