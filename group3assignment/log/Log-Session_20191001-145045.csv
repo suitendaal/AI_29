@@ -1,9 +1,0 @@
-1,1,0.16666666666666666,BoulwareNegotiationParty@20,(Offer  bid:Bid[Food: Chips and Nuts, Drinks: Beer Only, Location: Party Room, Invitations: Custom, Handmade, Music: DJ, Cleanup: Specialized Materials])
-1,2,0.16666666666666666,ConcederNegotiationParty@21,(Offer  bid:Bid[Food: Catering, Drinks: Handmade Cocktails, Location: Party Room, Invitations: Custom, Printed, Music: MP3, Cleanup: Water and Soap])
-2,1,0.3333333333333333,BoulwareNegotiationParty@20,(Offer  bid:Bid[Food: Chips and Nuts, Drinks: Beer Only, Location: Party Room, Invitations: Custom, Handmade, Music: DJ, Cleanup: Specialized Materials])
-2,2,0.3333333333333333,ConcederNegotiationParty@21,(Offer  bid:Bid[Food: Catering, Drinks: Non-Alcoholic, Location: Party Room, Invitations: Plain, Music: MP3, Cleanup: Special Equiment])
-3,1,0.5,BoulwareNegotiationParty@20,(Offer  bid:Bid[Food: Chips and Nuts, Drinks: Beer Only, Location: Party Room, Invitations: Custom, Handmade, Music: DJ, Cleanup: Specialized Materials])
-3,2,0.5,ConcederNegotiationParty@21,(Offer  bid:Bid[Food: Catering, Drinks: Catering, Location: Ballroom, Invitations: Custom, Handmade, Music: DJ, Cleanup: Water and Soap])
-4,1,0.6666666666666666,BoulwareNegotiationParty@20,(Offer  bid:Bid[Food: Chips and Nuts, Drinks: Beer Only, Location: Party Room, Invitations: Custom, Handmade, Music: DJ, Cleanup: Water and Soap])
-4,2,0.6666666666666666,ConcederNegotiationParty@21,(Accept  bid:Bid[Food: Chips and Nuts, Drinks: Beer Only, Location: Party Room, Invitations: Custom, Handmade, Music: DJ, Cleanup: Water and Soap])
-agreement,Bid[Food: Chips and Nuts, Drinks: Beer Only, Location: Party Room, Invitations: Custom, Handmade, Music: DJ, Cleanup: Water and Soap],0.9666666666666668,0.46848669727080305
