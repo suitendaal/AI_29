@@ -1,3 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <boaPartiesList>
+    <boaparties partyName="partyparty">
+        <properties/>
+        <biddingStrategy>
+            <parameters name="min" value="0.0"/>
+            <parameters name="e" value="1.0"/>
+            <parameters name="max" value="0.99"/>
+            <parameters name="k" value="0.0"/>
+            <item classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/TimeDependent_Offering.class"/>
+        </biddingStrategy>
+        <acceptanceStrategy>
+            <parameters name="a" value="1.0"/>
+            <parameters name="b" value="0.0"/>
+            <item classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/AC_Next.class"/>
+        </acceptanceStrategy>
+        <opponentModel>
+            <item classpath="genius.core.boaframework.NoModel"/>
+        </opponentModel>
+        <omStrategy>
+            <parameters name="t" value="1.1"/>
+            <item classpath="negotiator.boaframework.omstrategy.NullStrategy"/>
+        </omStrategy>
+    </boaparties>
 </boaPartiesList>
