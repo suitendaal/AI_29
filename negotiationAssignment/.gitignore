@@ -1,3 +1,5 @@
+*.xml
+.classpath
 .metadata
 bin/
 tmp/
