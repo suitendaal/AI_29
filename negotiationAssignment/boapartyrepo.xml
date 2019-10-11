@@ -5,14 +5,15 @@
         <biddingStrategy>
             <parameters name="min" value="0.0"/>
             <parameters name="e" value="1.0"/>
-            <parameters name="max" value="0.99"/>
             <parameters name="k" value="0.0"/>
+            <parameters name="max" value="0.99"/>
             <item classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/TimeDependent_Offering.class"/>
         </biddingStrategy>
         <acceptanceStrategy>
-            <parameters name="a" value="1.0"/>
-            <parameters name="b" value="0.0"/>
-            <item classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/AC_Next.class"/>
+            <parameters name="b" value="0.01"/>
+            <parameters name="a" value="0.7"/>
+            <parameters name="d" value="0.2"/>
+            <item classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/AC_ai29.class"/>
         </acceptanceStrategy>
         <opponentModel>
             <item classpath="genius.core.boaframework.NoModel"/>

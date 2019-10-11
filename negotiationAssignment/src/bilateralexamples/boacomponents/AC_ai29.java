@@ -35,11 +35,12 @@ public class AC_ai29 extends AcceptanceStrategy {
 	}
 
 	public AC_ai29(NegotiationSession negoSession, OfferingStrategy strat,
-			double alpha, double beta) {
+			double alpha, double beta, double delta) {
 		this.negotiationSession = negoSession;
 		this.offeringStrategy = strat;
 		this.a = alpha;
 		this.b = beta;
+		this.d = delta;
 	}
 
 	@Override
@@ -93,11 +94,12 @@ public class AC_ai29 extends AcceptanceStrategy {
 	public Set<BOAparameter> getParameterSpec() {
 
 		Set<BOAparameter> set = new HashSet<BOAparameter>();
-		set.add(new BOAparameter("a", 1.0,
-				"Accept when the opponent's utility * a + b is greater than the utility of our current bid"));
-		set.add(new BOAparameter("b", 0.0,
-				"Accept when the opponent's utility * a + b is greater than the utility of our current bid"));
-
+		set.add(new BOAparameter("a", 0.7,
+				"TODO"));
+		set.add(new BOAparameter("b", 0.01,
+				"TODO"));
+		set.add(new BOAparameter("d", 0.2,
+				"TODO"));
 		return set;
 	}
 
