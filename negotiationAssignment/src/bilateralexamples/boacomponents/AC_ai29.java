@@ -56,6 +56,7 @@ public class AC_ai29 extends AcceptanceStrategy {
 		} else {
 			a = 1;
 			b = 0;
+			d = 0;
 		}
 	}
 
