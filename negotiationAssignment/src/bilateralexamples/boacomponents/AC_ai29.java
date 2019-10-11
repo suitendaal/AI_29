@@ -20,7 +20,7 @@ import genius.core.boaframework.OpponentModel;
  * T. Baarslag, K. Hindriks, M. Hendrikx, A. Dirkzwager, C.M. Jonker
  * 
  */
-public class AC_Next extends AcceptanceStrategy {
+public class AC_ai29 extends AcceptanceStrategy {
 
 	private double a;
 	private double b;
@@ -28,10 +28,10 @@ public class AC_Next extends AcceptanceStrategy {
 	/**
 	 * Empty constructor for the BOA framework.
 	 */
-	public AC_Next() {
+	public AC_ai29() {
 	}
 
-	public AC_Next(NegotiationSession negoSession, OfferingStrategy strat,
+	public AC_ai29(NegotiationSession negoSession, OfferingStrategy strat,
 			double alpha, double beta) {
 		this.negotiationSession = negoSession;
 		this.offeringStrategy = strat;
