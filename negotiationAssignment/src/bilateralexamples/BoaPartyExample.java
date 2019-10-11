@@ -6,11 +6,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import bilateralexamples.boacomponents.AC_Next;
+import bilateralexamples.boacomponents.AC_ai29;
 import bilateralexamples.boacomponents.BestBid;
 import bilateralexamples.boacomponents.BiddingStrategy29;
 import bilateralexamples.boacomponents.HardHeadedFrequencyModel;
-import bilateralexamples.boacomponents.TimeDependent_Offering;
 import genius.core.boaframework.AcceptanceStrategy;
 import genius.core.boaframework.BoaParty;
 import genius.core.boaframework.OMStrategy;
@@ -46,7 +45,7 @@ public class BoaPartyExample extends BoaParty
 	public void init(NegotiationInfo info) 
 	{
 		// The choice for each component is made here
-		AcceptanceStrategy 	ac  = new AC_Next();
+		AcceptanceStrategy 	ac  = new AC_ai29();
 		OfferingStrategy 	os  = new BiddingStrategy29();
 		OpponentModel 		om  = new HardHeadedFrequencyModel();
 		OMStrategy			oms = new BestBid();
