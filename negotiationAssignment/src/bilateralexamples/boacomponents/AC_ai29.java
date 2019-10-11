@@ -20,23 +20,27 @@ import genius.core.boaframework.OpponentModel;
  * T. Baarslag, K. Hindriks, M. Hendrikx, A. Dirkzwager, C.M. Jonker
  * 
  */
-public class AC_Next extends AcceptanceStrategy {
+public class AC_ai29 extends AcceptanceStrategy {
 
 	private double a;
 	private double b;
+	private double d;
+
+	private int OurOpeningBid = -1; // start uninitialized
 
 	/**
 	 * Empty constructor for the BOA framework.
 	 */
-	public AC_Next() {
+	public AC_ai29() {
 	}
 
-	public AC_Next(NegotiationSession negoSession, OfferingStrategy strat,
-			double alpha, double beta) {
+	public AC_ai29(NegotiationSession negoSession, OfferingStrategy strat,
+			double alpha, double beta, double delta) {
 		this.negotiationSession = negoSession;
 		this.offeringStrategy = strat;
 		this.a = alpha;
 		this.b = beta;
+		this.d = delta;
 	}
 
 	@Override
@@ -46,12 +50,14 @@ public class AC_Next extends AcceptanceStrategy {
 		this.negotiationSession = negoSession;
 		this.offeringStrategy = strat;
 
-		if (parameters.get("a") != null || parameters.get("b") != null) {
+		if (parameters.get("a") != null || parameters.get("b") != null || parameters.get("d") != null) {
 			a = parameters.get("a");
 			b = parameters.get("b");
+			d = parameters.get("d");
 		} else {
 			a = 1;
 			b = 0;
+			d = 0;
 		}
 	}
 
@@ -68,16 +74,17 @@ public class AC_Next extends AcceptanceStrategy {
 		double lastOpponentBidUtil = negotiationSession.getOpponentBidHistory()
 				.getLastBidDetails().getMyUndiscountedUtil();
 		
-		Bid lastBid = negotiationSession.getOpponentBidHistory().getLastBid();
-		
-		if (lastBid == null) {
-			boolean turn1 = true;
+		if (OurOpeningBid < 0) { // unknown if we started or they started
+			Bid lastBid = negotiationSession.getOpponentBidHistory().getFirstBidDetails().getBid();
+			OurOpeningBid = lastBid == null ? 1 : 0;
 		}
 		
+		double f_t = -b * negotiationSession.getTime() + a + d * OurOpeningBid;
 		
-		
-		
-		if (a * lastOpponentBidUtil + b >= nextMyBidUtil) {
+		if (lastOpponentBidUtil >= f_t) {
+			return Actions.Accept;
+		}
+		else if (lastOpponentBidUtil > nextMyBidUtil) {
 			return Actions.Accept;
 		}
 		return Actions.Reject;
@@ -87,16 +94,17 @@ public class AC_Next extends AcceptanceStrategy {
 	public Set<BOAparameter> getParameterSpec() {
 
 		Set<BOAparameter> set = new HashSet<BOAparameter>();
-		set.add(new BOAparameter("a", 1.0,
-				"Accept when the opponent's utility * a + b is greater than the utility of our current bid"));
-		set.add(new BOAparameter("b", 0.0,
-				"Accept when the opponent's utility * a + b is greater than the utility of our current bid"));
-
+		set.add(new BOAparameter("a", 0.7,
+				"TODO")); // todo give description of parameter
+		set.add(new BOAparameter("b", 0.01,
+				"TODO"));
+		set.add(new BOAparameter("d", 0.2,
+				"TODO"));
 		return set;
 	}
 
 	@Override
 	public String getName() {
-		return "AC_Next example";
+		return "AC of ai 29";
 	}
 }

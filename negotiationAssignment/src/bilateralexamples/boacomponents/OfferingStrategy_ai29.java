@@ -22,7 +22,7 @@ import genius.core.boaframework.SortedOutcomeSpace;
  * 
  * The default strategy was extended to enable the usage of opponent models.
  */
-public class TimeDependent_Offering extends OfferingStrategy {
+public class OfferingStrategy_ai29 extends OfferingStrategy {
 
 	/**
 	 * k in [0, 1]. For k = 0 the agent starts with a bid of maximum utility
