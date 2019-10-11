@@ -24,6 +24,9 @@ public class AC_ai29 extends AcceptanceStrategy {
 
 	private double a;
 	private double b;
+	private double d;
+
+	private int OurOpeningBid = -1; // start uninitialized
 
 	/**
 	 * Empty constructor for the BOA framework.
@@ -46,9 +49,10 @@ public class AC_ai29 extends AcceptanceStrategy {
 		this.negotiationSession = negoSession;
 		this.offeringStrategy = strat;
 
-		if (parameters.get("a") != null || parameters.get("b") != null) {
+		if (parameters.get("a") != null || parameters.get("b") != null || parameters.get("d") != null) {
 			a = parameters.get("a");
 			b = parameters.get("b");
+			d = parameters.get("d");
 		} else {
 			a = 1;
 			b = 0;
@@ -68,16 +72,17 @@ public class AC_ai29 extends AcceptanceStrategy {
 		double lastOpponentBidUtil = negotiationSession.getOpponentBidHistory()
 				.getLastBidDetails().getMyUndiscountedUtil();
 		
-		Bid lastBid = negotiationSession.getOpponentBidHistory().getLastBid();
-		
-		if (lastBid == null) {
-			boolean turn1 = true;
+		if (OurOpeningBid < 0) { // unknown if we started or they started
+			Bid lastBid = negotiationSession.getOpponentBidHistory().getFirstBidDetails().getBid();
+			OurOpeningBid = lastBid == null ? 1 : 0;
 		}
 		
+		double f_t = -b * negotiationSession.getTime() + a + d * OurOpeningBid;
 		
-		
-		
-		if (a * lastOpponentBidUtil + b >= nextMyBidUtil) {
+		if (lastOpponentBidUtil >= f_t) {
+			return Actions.Accept;
+		}
+		else if (lastOpponentBidUtil > nextMyBidUtil) {
 			return Actions.Accept;
 		}
 		return Actions.Reject;
@@ -97,6 +102,6 @@ public class AC_ai29 extends AcceptanceStrategy {
 
 	@Override
 	public String getName() {
-		return "AC_Next example";
+		return "AC of ai 29";
 	}
 }
