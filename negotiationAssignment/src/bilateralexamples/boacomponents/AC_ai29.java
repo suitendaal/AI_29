@@ -95,7 +95,7 @@ public class AC_ai29 extends AcceptanceStrategy {
 
 		Set<BOAparameter> set = new HashSet<BOAparameter>();
 		set.add(new BOAparameter("a", 0.7,
-				"TODO"));
+				"TODO")); // todo give description of parameter
 		set.add(new BOAparameter("b", 0.01,
 				"TODO"));
 		set.add(new BOAparameter("d", 0.2,
