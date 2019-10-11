@@ -8,6 +8,7 @@ import java.util.Map;
 
 import bilateralexamples.boacomponents.AC_Next;
 import bilateralexamples.boacomponents.BestBid;
+import bilateralexamples.boacomponents.BiddingStrategy29;
 import bilateralexamples.boacomponents.HardHeadedFrequencyModel;
 import bilateralexamples.boacomponents.TimeDependent_Offering;
 import genius.core.boaframework.AcceptanceStrategy;
@@ -46,7 +47,7 @@ public class BoaPartyExample extends BoaParty
 	{
 		// The choice for each component is made here
 		AcceptanceStrategy 	ac  = new AC_Next();
-		OfferingStrategy 	os  = new TimeDependent_Offering();
+		OfferingStrategy 	os  = new BiddingStrategy29();
 		OpponentModel 		om  = new HardHeadedFrequencyModel();
 		OMStrategy			oms = new BestBid();
 		
@@ -93,7 +94,7 @@ public class BoaPartyExample extends BoaParty
 	@Override
 	public String getDescription() 
 	{
-		return "Boa Party Example";
+		return "Boa Party Example2";
 	}
 
 	// All the rest of the agent functionality is defined by the components selected above, using the BOA framework
