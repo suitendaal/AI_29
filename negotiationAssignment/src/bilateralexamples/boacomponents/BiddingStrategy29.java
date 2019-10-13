@@ -80,6 +80,10 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		if (OurOpeningBid < 0) { // unknown if we started or they started
 			OurOpeningBid = negotiationSession.getOpponentBidHistory().size() == 0 ? 1 : 0;
 		}
+		else if (negotiationSession.getOpponentBidHistory().size() == 59) {
+			// In the end do a fy bod
+			target = 1;
+		}
 		
 		double utilityGoal = target + OurOpeningBid*dBid;
 		Range utilRange = new Range(utilityGoal, 1);

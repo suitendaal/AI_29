@@ -24,7 +24,6 @@ public class AC_ai29 extends AcceptanceStrategy {
 
 	private double a;
 	private double b;
-	private double d;
 
 	private int OurOpeningBid = -1; // start uninitialized
 
@@ -40,7 +39,6 @@ public class AC_ai29 extends AcceptanceStrategy {
 		this.offeringStrategy = strat;
 		this.a = alpha;
 		this.b = beta;
-		this.d = delta;
 	}
 
 	@Override
@@ -53,11 +51,9 @@ public class AC_ai29 extends AcceptanceStrategy {
 		if (parameters.get("a") != null || parameters.get("b") != null || parameters.get("d") != null) {
 			a = parameters.get("a");
 			b = parameters.get("b");
-			d = parameters.get("d");
 		} else {
 			a = 0.7;
 			b = 25;
-			d = 0.2;
 		}
 	}
 
@@ -78,7 +74,7 @@ public class AC_ai29 extends AcceptanceStrategy {
 			OurOpeningBid = negotiationSession.getOwnBidHistory().size() == 0 && negotiationSession.getOpponentBidHistory().size() == 1 ? 0 : 1;
 		}
 		
-		double f_t = (-Math.pow(negotiationSession.getTime(), b) + 1) * (a + d * OurOpeningBid);
+		double f_t = (-Math.pow(negotiationSession.getTime(), b) + 1) * a * (1-OurOpeningBid) + OurOpeningBid;
 		
 		System.out.println(f_t + " " + OurOpeningBid);
 		
@@ -98,8 +94,6 @@ public class AC_ai29 extends AcceptanceStrategy {
 		set.add(new BOAparameter("a", a,
 				"TODO")); // todo give description of parameter
 		set.add(new BOAparameter("b", b,
-				"TODO"));
-		set.add(new BOAparameter("d", d,
 				"TODO"));
 		return set;
 	}
