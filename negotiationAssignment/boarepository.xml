@@ -14,6 +14,7 @@
 		<biddingstrategy description="2011 - Nice-Tit-For-Tat" classpath="negotiator.boaframework.offeringstrategy.anac2011.NiceTitForTat_Offering"/>
 		<biddingstrategy description="BiddingStrategy29.class" classpath="C:\Users\Sven\Documents\TU Delft\Master jaar 1\AI\Code\code3\AI_29\negotiationAssignment\bin\bilateralexamples\boacomponents\BiddingStrategy29.class"/>
 		<biddingstrategy description="2010 - Agent Smith" classpath="negotiator.boaframework.offeringstrategy.anac2010.AgentSmith_Offering"/>
+		<biddingstrategy description="TimeDependent_Offering.class" classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/TimeDependent_Offering.class"/>
 		<biddingstrategy description="2011 - ValueModelAgent" classpath="negotiator.boaframework.offeringstrategy.anac2011.ValueModelAgent_Offering"/>
 		<biddingstrategy description="2013 - InoxAgent" classpath="negotiator.boaframework.offeringstrategy.anac2013.InoxAgent_Offering"/>
 		<biddingstrategy description="2010 - Nozomi" classpath="negotiator.boaframework.offeringstrategy.anac2010.Nozomi_Offering"/>
@@ -102,6 +103,7 @@
 		<omstrategy description="NTFT" classpath="negotiator.boaframework.omstrategy.NTFTstrategy"/>
 		<omstrategy description="Best bid" classpath="negotiator.boaframework.omstrategy.BestBid"/>
 		<omstrategy description="Random" classpath="negotiator.boaframework.omstrategy.NullStrategy"/>
+		<omstrategy description="BestBid.class" classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/BestBid.class"/>
 		<omstrategy description="Offer best n" classpath="negotiator.boaframework.omstrategy.OfferBestN"/>
 		<omstrategy description="TheFawkes" classpath="negotiator.boaframework.omstrategy.TheFawkes_OMS"/>
 	</omstrategies>

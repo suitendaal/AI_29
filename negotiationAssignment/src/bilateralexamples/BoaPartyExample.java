@@ -98,3 +98,4 @@ public class BoaPartyExample extends BoaParty
 
 	// All the rest of the agent functionality is defined by the components selected above, using the BOA framework
 }
+

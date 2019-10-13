@@ -384,6 +384,7 @@
             <partyRepItem classPath="negotiator.parties.FeedbackHillClimber" strategyParameters="">
                 <properties/>
             </partyRepItem>
+            <partyRepItem classPath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/RandomBidderExample.class" strategyParameters="">
             <partyRepItem classPath="C:\Users\Sven\Documents\TU Delft\Master jaar 1\AI\Code\code3\AI_29\negotiationAssignment\bin\bilateralexamples\RandomBidderExample.class" strategyParameters="">
                 <properties/>
             </partyRepItem>

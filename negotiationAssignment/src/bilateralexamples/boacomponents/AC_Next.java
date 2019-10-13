@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import genius.core.Bid;
 import genius.core.boaframework.AcceptanceStrategy;
 import genius.core.boaframework.Actions;
 import genius.core.boaframework.BOAparameter;
@@ -66,7 +67,16 @@ public class AC_Next extends AcceptanceStrategy {
 				.getMyUndiscountedUtil();
 		double lastOpponentBidUtil = negotiationSession.getOpponentBidHistory()
 				.getLastBidDetails().getMyUndiscountedUtil();
-
+		
+		Bid lastBid = negotiationSession.getOpponentBidHistory().getLastBid();
+		
+		if (lastBid == null) {
+			boolean turn1 = true;
+		}
+		
+		
+		
+		
 		if (a * lastOpponentBidUtil + b >= nextMyBidUtil) {
 			return Actions.Accept;
 		}
