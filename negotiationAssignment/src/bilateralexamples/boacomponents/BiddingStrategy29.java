@@ -42,6 +42,18 @@ public class BiddingStrategy29 extends OfferingStrategy {
 			negotiationSession.setOutcomeSpace(outcomespace);
 			
 			this.e = parameters.get("e");
+			
+			if (parameters.get("dBid") != null) {
+				this.dBid = parameters.get("dBid");
+			}
+			
+			if (parameters.get("target") != null) {
+				this.target = parameters.get("target");
+			}
+			
+			if (parameters.get("targetDecrease") != null) {
+				this.targetDecrease = parameters.get("targetDecrease");
+			}
 
 			this.opponentModel = model;
 			
@@ -68,6 +80,10 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		if (OurOpeningBid < 0) { // unknown if we started or they started
 			OurOpeningBid = negotiationSession.getOpponentBidHistory().size() == 0 ? 1 : 0;
 		}
+		else if (negotiationSession.getOpponentBidHistory().size() == 59) {
+			// In the end do a fy bod
+			target = 1;
+		}
 		
 		double utilityGoal = target + OurOpeningBid*dBid;
 		Range utilRange = new Range(utilityGoal, 1);
@@ -91,8 +107,9 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	public Set<BOAparameter> getParameterSpec() {
 		Set<BOAparameter> set = new HashSet<BOAparameter>();
 		set.add(new BOAparameter("e", 1.0, "Concession rate"));
-		set.add(new BOAparameter("d", 0.2, "Target increment when opening bidder"));
-		set.add(new BOAparameter("target", 0.7, "Base target"));
+		set.add(new BOAparameter("dBid", dBid, "Target increment when opening bidder"));
+		set.add(new BOAparameter("target", target, "Base target"));
+		set.add(new BOAparameter("targetDecrease", targetDecrease, "Target decrease"));
 		return set;
 	}
 	

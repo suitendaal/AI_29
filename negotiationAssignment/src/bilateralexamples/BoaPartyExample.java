@@ -10,7 +10,6 @@ import bilateralexamples.boacomponents.AC_ai29;
 import bilateralexamples.boacomponents.BestBid;
 import bilateralexamples.boacomponents.BiddingStrategy29;
 import bilateralexamples.boacomponents.HardHeadedFrequencyModel;
-import bilateralexamples.boacomponents.OfferingStrategy_ai29;
 import genius.core.boaframework.AcceptanceStrategy;
 import genius.core.boaframework.BoaParty;
 import genius.core.boaframework.OMStrategy;
@@ -99,3 +98,4 @@ public class BoaPartyExample extends BoaParty
 
 	// All the rest of the agent functionality is defined by the components selected above, using the BOA framework
 }
+

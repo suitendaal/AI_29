@@ -12,6 +12,7 @@
 		<biddingstrategy description="Other - Random walker" classpath="negotiator.boaframework.offeringstrategy.other.Random_Offering"/>
 		<biddingstrategy description="2011 - BRAMAgent" classpath="negotiator.boaframework.offeringstrategy.anac2011.BRAMAgent_Offering"/>
 		<biddingstrategy description="2011 - Nice-Tit-For-Tat" classpath="negotiator.boaframework.offeringstrategy.anac2011.NiceTitForTat_Offering"/>
+		<biddingstrategy description="BiddingStrategy29.class" classpath="C:\Users\Sven\Documents\TU Delft\Master jaar 1\AI\Code\code3\AI_29\negotiationAssignment\bin\bilateralexamples\boacomponents\BiddingStrategy29.class"/>
 		<biddingstrategy description="2010 - Agent Smith" classpath="negotiator.boaframework.offeringstrategy.anac2010.AgentSmith_Offering"/>
 		<biddingstrategy description="TimeDependent_Offering.class" classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/TimeDependent_Offering.class"/>
 		<biddingstrategy description="2011 - ValueModelAgent" classpath="negotiator.boaframework.offeringstrategy.anac2011.ValueModelAgent_Offering"/>
@@ -50,8 +51,7 @@
 		<acceptancecondition description="Other - CombiMaxInWindow" classpath="negotiator.boaframework.acceptanceconditions.other.AC_CombiMaxInWindow"/>
 		<acceptancecondition description="2011 - ValueModelAgent" classpath="negotiator.boaframework.acceptanceconditions.anac2011.AC_ValueModelAgent"/>
 		<acceptancecondition description="Other - Next" classpath="negotiator.boaframework.acceptanceconditions.other.AC_Next"/>
-		<acceptancecondition description="AC_Next.class" classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/AC_Next.class"/>
-		<acceptancecondition description="AC_ai29.class" classpath="/home/joep/Dropbox/2-Studie/Q5/Artificial Intelligence/AI_29/negotiationAssignment/bin/bilateralexamples/boacomponents/AC_ai29.class"/>
+		<acceptancecondition description="AC_ai29.class" classpath="C:\Users\Sven\Documents\TU Delft\Master jaar 1\AI\Code\code3\AI_29\negotiationAssignment\bin\bilateralexamples\boacomponents\AC_ai29.class"/>
 		<acceptancecondition description="Other - Constant" classpath="negotiator.boaframework.acceptanceconditions.other.AC_Const"/>
 		<acceptancecondition description="2013 - InoxAgent" classpath="negotiator.boaframework.acceptanceconditions.anac2013.AC_InoxAgent"/>
 		<acceptancecondition description="2010 - Nozomi" classpath="negotiator.boaframework.acceptanceconditions.anac2010.AC_Nozomi"/>

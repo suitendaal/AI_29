@@ -24,7 +24,6 @@ public class AC_ai29 extends AcceptanceStrategy {
 
 	private double a;
 	private double b;
-	private double d;
 
 	private int OurOpeningBid = -1; // start uninitialized
 
@@ -40,7 +39,6 @@ public class AC_ai29 extends AcceptanceStrategy {
 		this.offeringStrategy = strat;
 		this.a = alpha;
 		this.b = beta;
-		this.d = delta;
 	}
 
 	@Override
@@ -53,11 +51,9 @@ public class AC_ai29 extends AcceptanceStrategy {
 		if (parameters.get("a") != null || parameters.get("b") != null || parameters.get("d") != null) {
 			a = parameters.get("a");
 			b = parameters.get("b");
-			d = parameters.get("d");
 		} else {
-			a = 1;
-			b = 0;
-			d = 0;
+			a = 0.7;
+			b = 25;
 		}
 	}
 
@@ -75,11 +71,12 @@ public class AC_ai29 extends AcceptanceStrategy {
 				.getLastBidDetails().getMyUndiscountedUtil();
 		
 		if (OurOpeningBid < 0) { // unknown if we started or they started
-			Bid lastBid = negotiationSession.getOpponentBidHistory().getFirstBidDetails().getBid();
-			OurOpeningBid = lastBid == null ? 1 : 0;
+			OurOpeningBid = negotiationSession.getOwnBidHistory().size() == 0 && negotiationSession.getOpponentBidHistory().size() == 1 ? 0 : 1;
 		}
 		
-		double f_t = -b * negotiationSession.getTime() + a + d * OurOpeningBid;
+		double f_t = (-Math.pow(negotiationSession.getTime(), b) + 1) * a * (1-OurOpeningBid) + OurOpeningBid;
+		
+		System.out.println(f_t + " " + OurOpeningBid);
 		
 		if (lastOpponentBidUtil >= f_t) {
 			return Actions.Accept;
@@ -94,11 +91,9 @@ public class AC_ai29 extends AcceptanceStrategy {
 	public Set<BOAparameter> getParameterSpec() {
 
 		Set<BOAparameter> set = new HashSet<BOAparameter>();
-		set.add(new BOAparameter("a", 0.7,
+		set.add(new BOAparameter("a", a,
 				"TODO")); // todo give description of parameter
-		set.add(new BOAparameter("b", 0.01,
-				"TODO"));
-		set.add(new BOAparameter("d", 0.2,
+		set.add(new BOAparameter("b", b,
 				"TODO"));
 		return set;
 	}
