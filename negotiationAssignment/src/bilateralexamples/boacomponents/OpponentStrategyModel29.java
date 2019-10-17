@@ -1,4 +1,4 @@
-package src.bilateralexamples.boacomponents;
+package bilateralexamples.boacomponents;
 
 import java.util.List;
 
