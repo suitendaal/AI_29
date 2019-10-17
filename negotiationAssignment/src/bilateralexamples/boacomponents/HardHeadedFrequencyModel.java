@@ -69,6 +69,7 @@ public class HardHeadedFrequencyModel extends OpponentModel {
 
 	@Override
 	public void updateModel(Bid opponentBid, double time) {
+		System.out.println("time: " + time);
 		if (negotiationSession.getOpponentBidHistory().size() < 2) {
 			return;
 		}
@@ -142,7 +143,7 @@ public class HardHeadedFrequencyModel extends OpponentModel {
 
 	@Override
 	public String getName() {
-		return "HardHeaded Frequency Model";
+		return "HardHeaded Frequency Model1";
 	}
 
 	@Override
