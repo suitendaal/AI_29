@@ -76,8 +76,6 @@ public class AC_ai29 extends AcceptanceStrategy {
 		
 		double f_t = (-Math.pow(negotiationSession.getTime(), b) + 1) * a * (1-OurOpeningBid) + OurOpeningBid;
 		
-		System.out.println(f_t + " " + OurOpeningBid);
-		
 		if (lastOpponentBidUtil >= f_t) {
 			return Actions.Accept;
 		}

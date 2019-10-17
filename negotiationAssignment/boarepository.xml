@@ -88,6 +88,7 @@
 		<opponentmodel description="Uniform Model" classpath="negotiator.boaframework.opponentmodel.UniformModel"/>
 		<opponentmodel description="Default Model" classpath="negotiator.boaframework.opponentmodel.DefaultModel"/>
 		<opponentmodel description="Nash Frequency Model" classpath="negotiator.boaframework.opponentmodel.NashFrequencyModel"/>
+		<opponentmodel description="OpponentModelAI29.class" classpath="C:\Users\Sven\Documents\TU Delft\Master jaar 1\AI\Code\code3\AI_29\negotiationAssignment\bin\bilateralexamples\boacomponents\OpponentModelAI29.class"/>
 		<opponentmodel description="Worst Model" classpath="negotiator.boaframework.opponentmodel.WorstModel"/>
 		<opponentmodel description="IAMhaggler Bayesian Model" classpath="negotiator.boaframework.opponentmodel.IAMhagglerBayesianModel"/>
 		<opponentmodel description="Bayesian Model" classpath="negotiator.boaframework.opponentmodel.BayesianModel"/>
