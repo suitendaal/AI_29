@@ -1,4 +1,4 @@
-package bilateralexamples.boacomponents;
+package group29;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -16,12 +16,12 @@ import genius.core.boaframework.SortedOutcomeSpace;
 import genius.core.misc.Range;
 
 
-public class BiddingStrategy29 extends OfferingStrategy {
+public class OfferingStrategy_ai29 extends OfferingStrategy {
 
 	private double e;
 	private SortedOutcomeSpace outcomespace;
-
-	private int OurOpeningBid = -1;
+	
+	private int OurOpeningBid = -1; 
 	//* dBid + target < 1 *//
 	private double dBid = 0.2;
 	private double target = 0.7; // target gets updated if turn 1
@@ -40,23 +40,23 @@ public class BiddingStrategy29 extends OfferingStrategy {
 
 			outcomespace = new SortedOutcomeSpace(negotiationSession.getUtilitySpace());
 			negotiationSession.setOutcomeSpace(outcomespace);
-
+			
 			this.e = parameters.get("e");
-
+			
 			if (parameters.get("dBid") != null) {
 				this.dBid = parameters.get("dBid");
 			}
-
+			
 			if (parameters.get("target") != null) {
 				this.target = parameters.get("target");
 			}
-
+			
 			if (parameters.get("targetDecrease") != null) {
 				this.targetDecrease = parameters.get("targetDecrease");
 			}
 
 			this.opponentModel = model;
-
+			
 			this.omStrategy = oms;
 		} else {
 			throw new Exception("Constant \"e\" for the concession speed was not set.");
@@ -76,7 +76,7 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	 */
 	@Override
 	public BidDetails determineNextBid() {
-
+		
 		if (OurOpeningBid < 0) { // unknown if we started or they started
 			OurOpeningBid = negotiationSession.getOpponentBidHistory().size() == 0 ? 1 : 0;
 		}
@@ -84,16 +84,16 @@ public class BiddingStrategy29 extends OfferingStrategy {
 			// In the end do a fy bod
 			target = 1;
 		}
-
+		
 		double utilityGoal = target + OurOpeningBid*dBid;
 		Range utilRange = new Range(utilityGoal, 1);
 		List<BidDetails> bidsAboveUtilitygoal = negotiationSession.getOutcomeSpace().getBidsinRange(utilRange);
-
+		
 		while (bidsAboveUtilitygoal.isEmpty()) {
 			target -= targetDecrease;
 			return determineNextBid();
 		}
-
+		
 		Random rand = new Random();
 		return bidsAboveUtilitygoal.get(rand.nextInt(bidsAboveUtilitygoal.size()));
 	}
@@ -102,6 +102,7 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		return negotiationSession;
 	}
 
+	// TODO: what to do?
 	@Override
 	public Set<BOAparameter> getParameterSpec() {
 		Set<BOAparameter> set = new HashSet<BOAparameter>();
@@ -111,7 +112,7 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		set.add(new BOAparameter("targetDecrease", targetDecrease, "Target decrease"));
 		return set;
 	}
-
+	
 	@Override
 	public String getName() {
 		return "Bidding Strategy group 29";

@@ -1,4 +1,4 @@
-package bilateralexamples.boacomponents;
+package group29;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -15,10 +15,10 @@ import genius.core.boaframework.OpponentModel;
 /**
  * This Acceptance Condition will accept an opponent bid if the utility is
  * higher than the bid the agent is ready to present.
- *
+ * 
  * Decoupling Negotiating Agents to Explore the Space of Negotiation Strategies
  * T. Baarslag, K. Hindriks, M. Hendrikx, A. Dirkzwager, C.M. Jonker
- *
+ * 
  */
 public class AC_ai29 extends AcceptanceStrategy {
 
@@ -69,15 +69,15 @@ public class AC_ai29 extends AcceptanceStrategy {
 				.getMyUndiscountedUtil();
 		double lastOpponentBidUtil = negotiationSession.getOpponentBidHistory()
 				.getLastBidDetails().getMyUndiscountedUtil();
-
+		
 		if (OurOpeningBid < 0) { // unknown if we started or they started
 			OurOpeningBid = negotiationSession.getOwnBidHistory().size() == 0 && negotiationSession.getOpponentBidHistory().size() == 1 ? 0 : 1;
 		}
-
+		
 		double f_t = (-Math.pow(negotiationSession.getTime(), b) + 1) * a * (1-OurOpeningBid) + OurOpeningBid;
-
+		
 		System.out.println(f_t + " " + OurOpeningBid);
-
+		
 		if (lastOpponentBidUtil >= f_t) {
 			return Actions.Accept;
 		}
