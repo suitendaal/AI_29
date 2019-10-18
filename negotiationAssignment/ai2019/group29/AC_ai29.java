@@ -98,6 +98,6 @@ public class AC_ai29 extends AcceptanceStrategy {
 
 	@Override
 	public String getName() {
-		return "AC of ai 29";
+		return "AC of group 29";
 	}
 }

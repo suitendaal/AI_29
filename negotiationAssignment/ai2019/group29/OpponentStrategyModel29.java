@@ -114,6 +114,6 @@ public class OpponentStrategyModel29 extends OMStrategy {
 
 	@Override
 	public String getName() {
-		return "BestBid example";
+		return "Group 29 opponent strategy model";
 	}
 }
