@@ -1,4 +1,4 @@
-package bilateralexamples.boacomponents;
+package group29;
 
 import java.util.List;
 
@@ -91,7 +91,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 //			Random r = new Random();
 //			return allBids.get(r.nextInt(allBids.size()));
 //		}
-		return bestBid;
+		return (BidDetails) allBids;
 	}
 
 	/**
