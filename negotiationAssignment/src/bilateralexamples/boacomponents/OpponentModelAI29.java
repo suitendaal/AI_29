@@ -1,4 +1,4 @@
-package bilateralexamples.boacomponents;
+package src.bilateralexamples.boacomponents;
 
 import java.util.HashMap;
 import java.util.HashSet;
