@@ -162,6 +162,6 @@ public class OfferingStrategy_ai29 extends OfferingStrategy {
 
 	@Override
 	public String getName() {
-		return "TimeDependent Offering example";
+		return "group 29 ";
 	}
 }

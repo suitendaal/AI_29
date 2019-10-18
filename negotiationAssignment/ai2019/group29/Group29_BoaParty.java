@@ -35,16 +35,16 @@ import genius.core.utility.AbstractUtilitySpace;
  * @author Tim Baarslag
  */
 @SuppressWarnings("serial")
-public class BoaPartyExample extends BoaParty 
+public class Group29_BoaParty extends BoaParty 
 {
 	@Override
 	public void init(NegotiationInfo info) 
 	{
 		// The choice for each component is made here
 		AcceptanceStrategy 	ac  = new AC_ai29();
-		OfferingStrategy 	os  = new BiddingStrategy29();
-		OpponentModel 		om  = new HardHeadedFrequencyModel();
-		OMStrategy			oms = new BestBid();
+		OfferingStrategy 	os  = new OfferingStrategy_ai29();
+		OpponentModel 		om  = new OpponentModelAI29();
+		OMStrategy			oms = new OpponentStrategyModel29();
 		
 		// All component parameters can be set below.
 		Map<String, Double> noparams = Collections.emptyMap();
@@ -89,7 +89,7 @@ public class BoaPartyExample extends BoaParty
 	@Override
 	public String getDescription() 
 	{
-		return "Boa Party Example2";
+		return "Group 29 - boa party";
 	}
 
 	// All the rest of the agent functionality is defined by the components selected above, using the BOA framework
