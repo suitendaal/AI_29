@@ -1,4 +1,4 @@
-package bilateralexamples.boacomponents;
+package group29;
 
 import java.util.HashSet;
 import java.util.Map;
