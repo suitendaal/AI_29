@@ -1,4 +1,4 @@
-package bilateralexamples;
+package group29;
 
 import java.util.List;
 
@@ -6,10 +6,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import bilateralexamples.boacomponents.AC_ai29;
-import bilateralexamples.boacomponents.BestBid;
-import bilateralexamples.boacomponents.BiddingStrategy29;
-import bilateralexamples.boacomponents.HardHeadedFrequencyModel;
 import genius.core.boaframework.AcceptanceStrategy;
 import genius.core.boaframework.BoaParty;
 import genius.core.boaframework.OMStrategy;
