@@ -1,7 +1,7 @@
 package group29;
 
 import java.util.List;
-
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
@@ -64,33 +64,68 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		// Sorteer de bids op volgorde van laag naar hoog
 		// Kies je bid afhankelijk van de tijd, verdere tijd = hogere bid
 
-//		// 1. If there is only a single bid, return this bid
-//		if (allBids.size() == 1) {
-//			return allBids.get(0);
-//		}
-//		double bestUtil = -1;
-//		BidDetails bestBid = allBids.get(0);
-//
-//		// 2. Check that not all bids are assigned at utility of 0
-//		// to ensure that the opponent model works. If the opponent model
-//		// does not work, offer a random bid.
-//		boolean allWereZero = true;
-//		// 3. Determine the best bid
-//		for (BidDetails bid : allBids) {
-//			double evaluation = model.getBidEvaluation(bid.getBid());
-//			if (evaluation > 0.0001) {
-//				allWereZero = false;
-//			}
-//			if (evaluation > bestUtil) {
-//				bestBid = bid;
-//				bestUtil = evaluation;
-//			}
-//		}
-//		// 4. The opponent model did not work, therefore, offer a random bid.
-//		if (allWereZero) {
-//			Random r = new Random();
-//			return allBids.get(r.nextInt(allBids.size()));
-//		}
+		// 1. If there is only a single bid, return this bid
+		if (allBids.size() == 1) {
+			return allBids.get(0);
+		}
+		double bestUtil = -1;
+		BidDetails bestBid = allBids.get(0);
+		
+		// 2. Check that not all bids are assigned at utility of 0
+		// to ensure that the opponent model works. If the opponent model
+		// does not work, offer a random bid.
+		boolean allWereZero = true;
+		
+		// 3. Determine the best bid // << is the magic sauce
+		double combiUtil_eval=0;
+		double combiUtil_best=0;
+//		List<BidDetails> allBidsNash;
+//		Deque<String> deque = new LinkedList<>();
+		Deque<BidDetails> allBidsNash = new LinkedList<>();
+		ArrayList<BidDetails> allBidsNash = ArrayList<BidDetails> ();
+//		double ownBest= evaluation;
+		for (BidDetails bid : allBids) {
+			double evaluation = model.getBidEvaluation(bid.getBid());//bid utility opponent
+
+			if (evaluation > 0.0001) {
+				allWereZero = false; //opponent model works
+			}
+			
+			ownEval= model.getBidEvaluation(bid);
+			combiUtil_eval=evaluation*ownEval;
+			combiUtil_best=bestUtil*ownBest;
+			
+			if(combiUtil_eval>=combiUtil_best) { //pick best/high utility for both parties
+			//if (evaluation > bestUtil) {
+				bestBid = bid; //best meaning highest nash product value
+				bestUtil = evaluation;
+				ownBest= model.getBidEvaluation(bid);
+				System.out.println(ownBest);
+				allBidsNash.addFirst(bid);
+			}else { //bid is not better, append to list sorted on Nash product
+				allBidsNash.add(bid)
+			}
+		}
+		if canUpdateOM() { //checks if still updatable opponent model
+			negotiationSession.getTime()
+			Random r1 = new Random();
+//			End_time = negotiationSession. 
+			double time = negotiationSession.getTime(); //is normalized time
+			if r1>0.5*time {
+				sendBid= allBidsNash.get(r1.nextInt(allBidsNash.size()));	
+			}else {
+				sendBid= bestBid;
+			}
+			
+		}//else sendBid stays the same
+		
+		// 4. Send bid
+		if (allWereZero) {//The opponent model did not work, therefore, offer a random bid.
+			Random r = new Random();
+			return allBids.get(r.nextInt(allBids.size()));
+		}else { //opponentmodel does work, send bid
+			return 	sendBid;		
+		}
 		return (BidDetails) allBids;
 	}
 
