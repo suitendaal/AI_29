@@ -64,8 +64,8 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	}
 
 	@Override
-	//public BidDetails determineOpeningBid() {
-	public List<BidDetails> determineOpeningBid() {
+	public BidDetails determineOpeningBid() {
+//	public List<BidDetails> determineOpeningBid() {
 		return determineNextBid();
 	}
 
@@ -76,8 +76,8 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	 * strategy.
 	 */
 	@Override
-	//public BidDetails determineNextBid() {
-	public List<BidDetails> determineNextBid() {
+	public BidDetails determineNextBid() {
+//	public List<BidDetails> determineNextBid() {
 		
 		if (OurOpeningBid < 0) { // unknown if we started or they started
 			OurOpeningBid = negotiationSession.getOpponentBidHistory().size() == 0 ? 1 : 0;
