@@ -2,7 +2,9 @@ package group29;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -79,10 +81,14 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		// 3. Determine the best bid // << is the magic sauce
 		double combiUtil_eval=0;
 		double combiUtil_best=0;
+		double ownBest =0;
+		BidDetails sendBid = bestBid;
+//		double bestBid =0;
 //		List<BidDetails> allBidsNash;
 //		Deque<String> deque = new LinkedList<>();
 		Deque<BidDetails> allBidsNash = new LinkedList<>();
-		ArrayList<BidDetails> allBidsNash = ArrayList<BidDetails> ();
+//		ArrayList<BidDetails> allBidsNash = ArrayList<BidDetails> ();
+		double time=negotiationSession.getTime();
 //		double ownBest= evaluation;
 		for (BidDetails bid : allBids) {
 			double evaluation = model.getBidEvaluation(bid.getBid());//bid utility opponent
@@ -91,7 +97,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 				allWereZero = false; //opponent model works
 			}
 			
-			ownEval= model.getBidEvaluation(bid);
+			double ownEval= model.getBidEvaluation(bid.getBid());
 			combiUtil_eval=evaluation*ownEval;
 			combiUtil_best=bestUtil*ownBest;
 			
@@ -99,20 +105,25 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			//if (evaluation > bestUtil) {
 				bestBid = bid; //best meaning highest nash product value
 				bestUtil = evaluation;
-				ownBest= model.getBidEvaluation(bid);
+				ownBest= model.getBidEvaluation(bid.getBid());
 				System.out.println(ownBest);
 				allBidsNash.addFirst(bid);
 			}else { //bid is not better, append to list sorted on Nash product
-				allBidsNash.add(bid)
+				allBidsNash.add(bid);
 			}
 		}
-		if canUpdateOM() { //checks if still updatable opponent model
-			negotiationSession.getTime()
+		
+		Random r = new Random();
+		if (canUpdateOM()) { //checks if still updatable opponent model
 			Random r1 = new Random();
 //			End_time = negotiationSession. 
-			double time = negotiationSession.getTime(); //is normalized time
-			if r1>time {
-				sendBid= allBidsNash.get(r1.nextInt(allBidsNash.size()));	
+//			double time = negotiationSession.getTime(); //is normalized time
+			double threshold=r1.nextInt(101)/100;
+			ArrayList<BidDetails> allBidsNashConvert = new ArrayList<BidDetails>(allBidsNash);
+			int index=r.nextInt(allBidsNash.size());
+			if (threshold > time) {
+				sendBid =allBidsNashConvert.get(index);
+//				sendBid= allBidsNash.element();	
 			}else {
 				sendBid= bestBid;
 			}
@@ -121,9 +132,9 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		
 		// 4. Send bid
 		if (allWereZero) {//The opponent model did not work, therefore, offer a random bid.
-			Random r = new Random();
+			
 			return allBids.get(r.nextInt(allBids.size()));
-		}else { //opponentmodel does work, send bid
+		}else { //opponentmodel does work, send bid		
 			return 	sendBid;		
 		}
 //		return (BidDetails) allBids;
