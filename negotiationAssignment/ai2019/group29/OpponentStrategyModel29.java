@@ -2,6 +2,7 @@ package group29;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -90,7 +91,6 @@ public class OpponentStrategyModel29 extends OMStrategy {
 //		ArrayList<BidDetails> allBidsNash = ArrayList<BidDetails> ();
 		double time=negotiationSession.getTime();
 //		double ownBest= evaluation;
-		//TODO fix sort
 		for (BidDetails bid : allBids) {
 			double evaluation = model.getBidEvaluation(bid.getBid());//bid utility opponent
 
@@ -104,7 +104,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			combiUtil_best=bestUtil*ownBest;
 			
 			
-			//TODO sort better
+
 			if(combiUtil_eval>=combiUtil_best) { //pick best/high utility for both parties
 			//if (evaluation > bestUtil) {
 				bestBid = bid; //best meaning highest nash product value
@@ -118,18 +118,27 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		}
 		
 		Random r = new Random();
-		if (canUpdateOM()) { //checks if still updatable opponent model
+		if (canUpdateOM()) { //checks if still update-able opponent model >>note: bidding should do last bid
 			Random r1 = new Random();
-//			End_time = negotiationSession. 
-//			double time = negotiationSession.getTime(); //is normalized time
-			double threshold=r1.nextInt(101)/100;
 			ArrayList<BidDetails> allBidsNashConvert = new ArrayList<BidDetails>(allBidsNash);
-			int index=r.nextInt(allBidsNash.size());
-			if (threshold > time) {
-				sendBid =allBidsNashConvert.get(index);
-//				sendBid= allBidsNash.element();	
+			Collections.sort(allBidsNashConvert); //sort the bids
+			int method=2; //<<<set the method
+			int index=r.nextInt(allBidsNash.size()); //index used in both methods
+			
+			if (method == 1) {	//Send random bid first, later send highest Nash product 
+				double threshold=r1.nextInt(101)/100; //values between 0 and 100
+				if (threshold > time) { //random choice between bestbid or nash, time progresses more bestbids
+					sendBid = allBidsNashConvert.get(index);	
+				}else {
+					sendBid = bestBid;
+				}
+			}else if(method == 2){
+				int sizeBids = allBidsNash.size();
+				int lenChoice=(int)Math.round(1-time)*sizeBids; //without round it would never be sizebids only floored
+				ArrayList<BidDetails> pickOne = new ArrayList<BidDetails>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
+				sendBid=pickOne.get(index);
 			}else {
-				sendBid= bestBid;
+				sendBid=bestBid; //just send something
 			}
 		}//else sendBid stays the same
 		
