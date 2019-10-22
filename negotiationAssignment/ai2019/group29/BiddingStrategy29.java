@@ -9,6 +9,7 @@ import java.util.List;
 import genius.core.bidding.BidDetails;
 import genius.core.boaframework.BOAparameter;
 import genius.core.boaframework.NegotiationSession;
+import genius.core.boaframework.NoModel;
 import genius.core.boaframework.OMStrategy;
 import genius.core.boaframework.OfferingStrategy;
 import genius.core.boaframework.OpponentModel;
@@ -94,9 +95,14 @@ public class BiddingStrategy29 extends OfferingStrategy {
 			target -= targetDecrease;
 			return determineNextBid();
 		}
+		if (opponentModel instanceof NoModel) {
+			nextBid = negotiationSession.getOutcomeSpace().getBidNearUtility(utilityGoal);
+		} else {
+			nextBid = omStrategy.getBid(outcomespace, utilityGoal);
+		}
 		
 		Random rand = new Random();
-		return bidsAboveUtilitygoal; //.get(rand.nextInt(bidsAboveUtilitygoal.size()));
+		return nextBid;//bidsAboveUtilitygoal; //.get(rand.nextInt(bidsAboveUtilitygoal.size()));
 	}
 
 	public NegotiationSession getNegotiationSession() {
