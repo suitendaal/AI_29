@@ -64,7 +64,8 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	}
 
 	@Override
-	public BidDetails determineOpeningBid() {
+	//public BidDetails determineOpeningBid() {
+	public List<BidDetails> determineOpeningBid() {
 		return determineNextBid();
 	}
 
@@ -75,14 +76,14 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	 * strategy.
 	 */
 	@Override
-	public BidDetails determineNextBid() {
+	//public BidDetails determineNextBid() {
+	public List<BidDetails> determineNextBid() {
 		
 		if (OurOpeningBid < 0) { // unknown if we started or they started
 			OurOpeningBid = negotiationSession.getOpponentBidHistory().size() == 0 ? 1 : 0;
 		}
-		else if (negotiationSession.getOpponentBidHistory().size() == 59) {
-			// In the end do a fy bod
-			target = 1;
+		else if (negotiationSession.getOpponentBidHistory().size() == negotiationSession.getTimeline().getTotalTime()-1) {
+			target = 1; //end with a high bid
 		}
 		
 		double utilityGoal = target + OurOpeningBid*dBid;
@@ -95,7 +96,7 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		}
 		
 		Random rand = new Random();
-		return bidsAboveUtilitygoal.get(rand.nextInt(bidsAboveUtilitygoal.size()));
+		return bidsAboveUtilitygoal; //.get(rand.nextInt(bidsAboveUtilitygoal.size()));
 	}
 
 	public NegotiationSession getNegotiationSession() {
