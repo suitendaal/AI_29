@@ -106,7 +106,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 				bestBid = bid; //best meaning highest nash product value
 				bestUtil = evaluation;
 				ownBest= model.getBidEvaluation(bid.getBid());
-				System.out.println(ownBest);
+//				System.out.println(ownBest);
 				allBidsNash.addFirst(bid);
 			}else { //bid is not better, append to list sorted on Nash product
 				allBidsNash.add(bid);
@@ -127,19 +127,22 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			}else {
 				sendBid= bestBid;
 			}
-			
 		}//else sendBid stays the same
 		
 		// 4. Send bid
+		
+		//test
+		System.out.println(allBids);
+		System.out.println(allBidsNash);
+		//
+		
 		if (allWereZero) {//The opponent model did not work, therefore, offer a random bid.
-			
 			return allBids.get(r.nextInt(allBids.size()));
 		}else { //opponentmodel does work, send bid		
 			return 	sendBid;		
 		}
 //		return (BidDetails) allBids;
 	}
-
 	/**
 	 * The opponent model may be updated, unless the time is higher than a given
 	 * constant.
