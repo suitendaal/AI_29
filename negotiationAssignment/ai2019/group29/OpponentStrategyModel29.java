@@ -111,7 +111,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			Random r1 = new Random();
 //			End_time = negotiationSession. 
 			double time = negotiationSession.getTime(); //is normalized time
-			if r1>0.5*time {
+			if r1>time {
 				sendBid= allBidsNash.get(r1.nextInt(allBidsNash.size()));	
 			}else {
 				sendBid= bestBid;
@@ -126,7 +126,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		}else { //opponentmodel does work, send bid
 			return 	sendBid;		
 		}
-		return (BidDetails) allBids;
+//		return (BidDetails) allBids;
 	}
 
 	/**
