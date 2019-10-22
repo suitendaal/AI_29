@@ -34,6 +34,7 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	 */
 	@Override
 	public void init(NegotiationSession negoSession, OpponentModel model, OMStrategy oms,
+	//public void init(NegotiationSession negoSession, OpponentModel om, OMStrategy oms,
 			Map<String, Double> parameters) throws Exception {
 		super.init(negoSession, parameters);
 		if (parameters.get("e") != null) {
@@ -87,6 +88,7 @@ public class BiddingStrategy29 extends OfferingStrategy {
 			target = 1; //end with a high bid
 		}
 		
+		// TODO place this in init
 		double utilityGoal = target + OurOpeningBid*dBid;
 		Range utilRange = new Range(utilityGoal, 1);
 		List<BidDetails> bidsAboveUtilitygoal = negotiationSession.getOutcomeSpace().getBidsinRange(utilRange);
@@ -96,13 +98,13 @@ public class BiddingStrategy29 extends OfferingStrategy {
 			return determineNextBid();
 		}
 		if (opponentModel instanceof NoModel) {
-			nextBid = negotiationSession.getOutcomeSpace().getBidNearUtility(utilityGoal);
+			Random rand = new Random();
+			nextBid = bidsAboveUtilitygoal.get(rand.nextInt(bidsAboveUtilitygoal.size()));
 		} else {
-			nextBid = omStrategy.getBid(outcomespace, utilityGoal);
+			nextBid = omStrategy.getBid(bidsAboveUtilitygoal);
 		}
 		
-		Random rand = new Random();
-		return nextBid;//bidsAboveUtilitygoal; //.get(rand.nextInt(bidsAboveUtilitygoal.size()));
+		return nextBid;//bidsAboveUtilitygoal.get(rand.nextInt(bidsAboveUtilitygoal.size()));
 	}
 
 	public NegotiationSession getNegotiationSession() {

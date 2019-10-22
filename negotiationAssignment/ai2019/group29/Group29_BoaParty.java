@@ -42,7 +42,7 @@ public class Group29_BoaParty extends BoaParty
 	{
 		// The choice for each component is made here
 		AcceptanceStrategy 	ac  = new AC_ai29();
-		OfferingStrategy 	os  = new OfferingStrategy_ai29();
+		OfferingStrategy 	os  = new BiddingStrategy29();
 		OpponentModel 		om  = new OpponentModelAI29();
 		OMStrategy			oms = new OpponentStrategyModel29();
 		
