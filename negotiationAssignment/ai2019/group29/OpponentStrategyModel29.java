@@ -90,6 +90,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 //		ArrayList<BidDetails> allBidsNash = ArrayList<BidDetails> ();
 		double time=negotiationSession.getTime();
 //		double ownBest= evaluation;
+		//TODO fix sort
 		for (BidDetails bid : allBids) {
 			double evaluation = model.getBidEvaluation(bid.getBid());//bid utility opponent
 
@@ -97,10 +98,13 @@ public class OpponentStrategyModel29 extends OMStrategy {
 				allWereZero = false; //opponent model works
 			}
 			
-			double ownEval= model.getBidEvaluation(bid.getBid());
+			double ownEval= negotiationSession.getUtilitySpace().getUtility(bid.getBid()) ;
+					//model.getBidEvaluation(bid.getBid());
 			combiUtil_eval=evaluation*ownEval;
 			combiUtil_best=bestUtil*ownBest;
 			
+			
+			//TODO sort better
 			if(combiUtil_eval>=combiUtil_best) { //pick best/high utility for both parties
 			//if (evaluation > bestUtil) {
 				bestBid = bid; //best meaning highest nash product value
@@ -132,8 +136,8 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		// 4. Send bid
 		
 		//test
-		System.out.println(allBids);
-		System.out.println(allBidsNash);
+//		System.out.println(allBids);
+//		System.out.println(allBidsNash);
 		//
 		
 		if (allWereZero) {//The opponent model did not work, therefore, offer a random bid.

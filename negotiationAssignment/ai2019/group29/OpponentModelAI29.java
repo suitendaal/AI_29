@@ -87,7 +87,8 @@ public class OpponentModelAI29 extends OpponentModel {
 	public void updateModel(Bid opponentBid, double time) {
 		
 		double term = Math.pow(1- time, gamma);
-		double term2 = Math.ceil(Math.pow((negotiationSession.getTimeline().getTotalTime() - 1) * (1 - time), zeta));
+		//value should be int << see class valueDiscrete
+		int term2 = (int) Math.ceil(Math.pow((negotiationSession.getTimeline().getTotalTime() - 1) * (1 - time), zeta));
 		
 		if (negotiationSession.getOpponentBidHistory().size() < 2) {
 			return;
