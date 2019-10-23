@@ -1,8 +1,10 @@
 package genius.core.bidding;
 
+import java.io.Serializable;
+
 import genius.core.Bid;
 
-public class BidDetailsNash {
+public class BidDetailsNash implements Serializable {
 	
 	public double nashProduct = 0;
 	public BidDetails bidDetails;
@@ -25,5 +27,10 @@ public class BidDetailsNash {
 	
 	public Bid getBid() {
 		return bidDetails.getBid();
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + nashProduct + ")";
 	}
 }

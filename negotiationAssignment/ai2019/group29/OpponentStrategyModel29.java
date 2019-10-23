@@ -139,12 +139,12 @@ public class OpponentStrategyModel29 extends OMStrategy {
 					int sizeBids = allBidsNash.size();
 					int lenChoice=(int)Math.round(1-time)*sizeBids;
 					if (lenChoice == 0) {
-						sendBid = allBidsNash.getFirst();
+						sendBidNash = allBidsNash.getFirst();
 					}
 					else {
-						ArrayList<BidDetails> pickOne = new ArrayList<BidDetails>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
+						ArrayList<BidDetailsNash> pickOne = new ArrayList<BidDetailsNash>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
 						int index=r.nextInt(pickOne.size()); //index used in both methods
-						sendBid=pickOne.get(index);
+						sendBidNash=pickOne.get(index);
 					}
 				}else {
 					sendBidNash = bestBidNash;
@@ -153,12 +153,12 @@ public class OpponentStrategyModel29 extends OMStrategy {
 				int sizeBids = allBidsNash.size();
 				int lenChoice=(int)Math.round(1-time)*sizeBids; //without round it would never be sizebids only floored
 				if (lenChoice == 0) {
-					sendBid = allBidsNash.getFirst();
+					sendBidNash = allBidsNash.getFirst();
 				}
 				else {
-					ArrayList<BidDetails> pickOne = new ArrayList<BidDetails>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
+					ArrayList<BidDetailsNash> pickOne = new ArrayList<BidDetailsNash>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
 					int index=r.nextInt(pickOne.size()); //index used in both methods
-					sendBid=pickOne.get(index);
+					sendBidNash=pickOne.get(index);
 				}
 			}else {
 				sendBidNash=bestBidNash; //just send something
