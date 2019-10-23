@@ -3,6 +3,7 @@ package group29;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -121,7 +122,11 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		if (canUpdateOM()) { //checks if still update-able opponent model >>note: bidding should do last bid
 			Random r1 = new Random();
 			ArrayList<BidDetails> allBidsNashConvert = new ArrayList<BidDetails>(allBidsNash);
-			Collections.sort(allBidsNashConvert); //sort the bids
+			Collections.sort(allBidsNashConvert, new Comparator<BidDetails>(){//sort the bids
+	             public int compare(BidDetails s1, BidDetails s2) {
+	                 return s1.getMyUndiscountedUtil() > s2.getMyUndiscountedUtil() ? 1 : 0;
+	              }
+	          });
 			int method=2; //<<<set the method
 			
 			if (method == 1) {	//Send random bid first, later send highest Nash product 
