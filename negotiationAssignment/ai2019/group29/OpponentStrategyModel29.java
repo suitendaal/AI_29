@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Set;
 
 import genius.core.bidding.BidDetails;
+import genius.core.bidding.BidDetailsNash;
 import genius.core.boaframework.BOAparameter;
 import genius.core.boaframework.NegotiationSession;
 import genius.core.boaframework.OMStrategy;
@@ -73,7 +74,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			return allBids.get(0);
 		}
 		double bestUtil = -1;
-		BidDetails bestBid = allBids.get(0);
+		BidDetailsNash bestBidNash = new BidDetailsNash(allBids.get(0));
 		
 		// 2. Check that not all bids are assigned at utility of 0
 		// to ensure that the opponent model works. If the opponent model
@@ -81,70 +82,73 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		boolean allWereZero = true;
 		
 		// 3. Determine the best bid // << is the magic sauce
-		double combiUtil_eval=0;
-		double combiUtil_best=0;
-		double ownBest =0;
-		BidDetails sendBid = bestBid;
+		double combiUtil_eval = 0;
+		double combiUtil_best = 0;
+		double ownBest = 0;
+		BidDetailsNash sendBidNash = bestBidNash;
 //		double bestBid =0;
 //		List<BidDetails> allBidsNash;
 //		Deque<String> deque = new LinkedList<>();
-		Deque<BidDetails> allBidsNash = new LinkedList<>();
+		Deque<BidDetailsNash> allBidsNash = new LinkedList<>();
 //		ArrayList<BidDetails> allBidsNash = ArrayList<BidDetails> ();
 		double time=negotiationSession.getTime();
 //		double ownBest= evaluation;
 		for (BidDetails bid : allBids) {
-			double evaluation = model.getBidEvaluation(bid.getBid());//bid utility opponent
+			BidDetailsNash bidNash = new BidDetailsNash(bid);
+			
+			double evaluation = model.getBidEvaluation(bidNash.getBid());//bid utility opponent
 
 			if (evaluation > 0.0001) {
 				allWereZero = false; //opponent model works
 			}
 			
-			double ownEval= negotiationSession.getUtilitySpace().getUtility(bid.getBid()) ;
+			double ownEval= negotiationSession.getUtilitySpace().getUtility(bidNash.getBid()) ;
 					//model.getBidEvaluation(bid.getBid());
-			combiUtil_eval=evaluation*ownEval;
-			combiUtil_best=bestUtil*ownBest;
+			combiUtil_eval = evaluation*ownEval;
+			combiUtil_best = bestUtil*ownBest;
 			
-			
+			bidNash.setNashProduct(combiUtil_eval);
 
 			if(combiUtil_eval>=combiUtil_best) { //pick best/high utility for both parties
 			//if (evaluation > bestUtil) {
-				bestBid = bid; //best meaning highest nash product value
+				bestBidNash = bidNash; //best meaning highest nash product value
 				bestUtil = evaluation;
-				ownBest= model.getBidEvaluation(bid.getBid());
+				ownBest= model.getBidEvaluation(bidNash.getBid());
 //				System.out.println(ownBest);
-				allBidsNash.addFirst(bid);
+				allBidsNash.addFirst(bestBidNash);
 			}else { //bid is not better, append to list sorted on Nash product
-				allBidsNash.add(bid);
+				allBidsNash.add(bidNash);
 			}
 		}
 		
 		Random r = new Random();
 		if (canUpdateOM()) { //checks if still update-able opponent model >>note: bidding should do last bid
 			Random r1 = new Random();
-			ArrayList<BidDetails> allBidsNashConvert = new ArrayList<BidDetails>(allBidsNash);
-			Collections.sort(allBidsNashConvert, new Comparator<BidDetails>(){
-	             public int compare(BidDetails s1, BidDetails s2) {
-	                 return s1.getMyUndiscountedUtil() > s2.getMyUndiscountedUtil() ? 1 : 0;
+			ArrayList<BidDetailsNash> allBidsNashConvert = new ArrayList<BidDetailsNash>(allBidsNash);
+			Collections.sort(allBidsNashConvert, new Comparator<BidDetailsNash>(){
+	             public int compare(BidDetailsNash s1, BidDetailsNash s2) {
+	                 return s1.getNashProduct() > s2.getNashProduct() ? 1 : 0;
 	              }
 	          });
+			System.out.println(allBidsNash);
 			int method=2; //<<<set the method
 			
 			if (method == 1) {	//Send random bid first, later send highest Nash product 
 				int index=r.nextInt(allBidsNash.size()); //index used in both methods
 				double threshold=r1.nextInt(101)/100; //values between 0 and 100
 				if (threshold > time) { //random choice between bestbid or nash, time progresses more bestbids
-					sendBid = allBidsNashConvert.get(index);	
+					sendBidNash = allBidsNashConvert.get(index);	
 				}else {
-					sendBid = bestBid;
+					sendBidNash = bestBidNash;
 				}
 			}else if(method == 2){
 				int sizeBids = allBidsNash.size();
 				int lenChoice=(int)Math.round(1-time)*sizeBids; //without round it would never be sizebids only floored
-				ArrayList<BidDetails> pickOne = new ArrayList<BidDetails>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
+				ArrayList<BidDetailsNash> pickOne = new ArrayList<BidDetailsNash>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
 				int index=r.nextInt(pickOne.size()); //index used in both methods
-				sendBid=pickOne.get(index);
+				sendBidNash=pickOne.get(index);
 			}else {
-				sendBid=bestBid; //just send something
+				sendBidNash=bestBidNash; //just send something
 			}
 		}//else sendBid stays the same
 		
@@ -158,7 +162,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		if (allWereZero) {//The opponent model did not work, therefore, offer a random bid.
 			return allBids.get(r.nextInt(allBids.size()));
 		}else { //opponentmodel does work, send bid		
-			return 	sendBid;		
+			return sendBidNash.getBidDetails();		
 		}
 //		return (BidDetails) allBids;
 	}
