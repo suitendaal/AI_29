@@ -12,7 +12,6 @@ import java.util.Random;
 import java.util.Set;
 
 import genius.core.bidding.BidDetails;
-import genius.core.bidding.BidDetailsNash;
 import genius.core.boaframework.BOAparameter;
 import genius.core.boaframework.NegotiationSession;
 import genius.core.boaframework.OMStrategy;

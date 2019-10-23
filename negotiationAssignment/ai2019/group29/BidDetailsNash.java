@@ -1,8 +1,9 @@
-package genius.core.bidding;
+package group29;
 
 import java.io.Serializable;
 
 import genius.core.Bid;
+import genius.core.bidding.BidDetails;
 
 public class BidDetailsNash implements Serializable, Comparable<BidDetailsNash> {
 	
