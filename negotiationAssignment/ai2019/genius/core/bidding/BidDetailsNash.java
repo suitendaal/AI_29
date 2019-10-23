@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import genius.core.Bid;
 
-public class BidDetailsNash implements Serializable {
+public class BidDetailsNash implements Serializable, Comparable<BidDetailsNash> {
 	
 	public double nashProduct = 0;
 	public BidDetails bidDetails;
@@ -32,5 +32,18 @@ public class BidDetailsNash implements Serializable {
 	@Override
 	public String toString() {
 		return "(" + nashProduct + ")";
+	}
+	
+	@Override
+	public int compareTo(BidDetailsNash other) {
+		double otherNash = other.getNashProduct();
+		
+		int value = 0;
+		if (this.nashProduct < otherNash) {
+			value = 1;
+		} else if (this.nashProduct > otherNash) {
+			value = -1;
+		}
+		return value;
 	}
 }

@@ -125,21 +125,17 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		if (canUpdateOM()) { //checks if still update-able opponent model >>note: bidding should do last bid
 			Random r1 = new Random();
 			ArrayList<BidDetailsNash> allBidsNashConvert = new ArrayList<BidDetailsNash>(allBidsNash);
-			Collections.sort(allBidsNashConvert, new Comparator<BidDetailsNash>(){
-	             public int compare(BidDetailsNash s1, BidDetailsNash s2) {
-	                 return s1.getNashProduct() > s2.getNashProduct() ? 1 : 0;
-	              }
-	          });
-			System.out.println(allBidsNash);
+			Collections.sort(allBidsNashConvert);
+			System.out.println(allBidsNashConvert);
 			int method=2; //<<<set the method
 			
 			if (method == 1) {	//Send random bid first, later send highest Nash product 
 				double threshold=r1.nextInt(101)/100; //values between 0 and 100
 				if (threshold > time) { //random choice between bestbid or nash, time progresses more bestbids
-					int sizeBids = allBidsNash.size();
+					int sizeBids = allBidsNashConvert.size();
 					int lenChoice=(int)Math.round(1-time)*sizeBids;
 					if (lenChoice == 0) {
-						sendBidNash = allBidsNash.getFirst();
+						sendBidNash = allBidsNashConvert.get(0);
 					}
 					else {
 						ArrayList<BidDetailsNash> pickOne = new ArrayList<BidDetailsNash>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
@@ -150,10 +146,10 @@ public class OpponentStrategyModel29 extends OMStrategy {
 					sendBidNash = bestBidNash;
 				}
 			}else if(method == 2){
-				int sizeBids = allBidsNash.size();
+				int sizeBids = allBidsNashConvert.size();
 				int lenChoice=(int)Math.round(1-time)*sizeBids; //without round it would never be sizebids only floored
 				if (lenChoice == 0) {
-					sendBidNash = allBidsNash.getFirst();
+					sendBidNash = allBidsNashConvert.get(0);
 				}
 				else {
 					ArrayList<BidDetailsNash> pickOne = new ArrayList<BidDetailsNash>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
