@@ -124,10 +124,13 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			ArrayList<BidDetails> allBidsNashConvert = new ArrayList<BidDetails>(allBidsNash);
 			Collections.sort(allBidsNashConvert, new Comparator<BidDetails>(){//sort the bids
 	             public int compare(BidDetails s1, BidDetails s2) {
-	                 return s1.getMyUndiscountedUtil() > s2.getMyUndiscountedUtil() ? 1 : 0;
+	                 return model.getBidEvaluation(s1.getBid()) > model.getBidEvaluation(s2.getBid()) ? 1 : 0;
 	              }
 	          });
+			System.out.println(allBidsNashConvert);
+			
 			int method=2; //<<<set the method
+			
 			
 			if (method == 1) {	//Send random bid first, later send highest Nash product 
 				int index=r.nextInt(allBidsNash.size()); //index used in both methods
