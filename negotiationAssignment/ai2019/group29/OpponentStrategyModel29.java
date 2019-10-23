@@ -125,19 +125,32 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			int method=2; //<<<set the method
 			
 			if (method == 1) {	//Send random bid first, later send highest Nash product 
-				int index=r.nextInt(allBidsNash.size()); //index used in both methods
 				double threshold=r1.nextInt(101)/100; //values between 0 and 100
 				if (threshold > time) { //random choice between bestbid or nash, time progresses more bestbids
-					sendBid = allBidsNashConvert.get(index);	
+					int sizeBids = allBidsNash.size();
+					int lenChoice=(int)Math.round(1-time)*sizeBids;
+					if (lenChoice == 0) {
+						sendBid = allBidsNash.getFirst();
+					}
+					else {
+						ArrayList<BidDetails> pickOne = new ArrayList<BidDetails>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
+						int index=r.nextInt(pickOne.size()); //index used in both methods
+						sendBid=pickOne.get(index);
+					}
 				}else {
 					sendBid = bestBid;
 				}
 			}else if(method == 2){
 				int sizeBids = allBidsNash.size();
 				int lenChoice=(int)Math.round(1-time)*sizeBids; //without round it would never be sizebids only floored
-				ArrayList<BidDetails> pickOne = new ArrayList<BidDetails>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
-				int index=r.nextInt(pickOne.size()); //index used in both methods
-				sendBid=pickOne.get(index);
+				if (lenChoice == 0) {
+					sendBid = allBidsNash.getFirst();
+				}
+				else {
+					ArrayList<BidDetails> pickOne = new ArrayList<BidDetails>(allBidsNashConvert.subList(0,lenChoice));//New array with actual available bids
+					int index=r.nextInt(pickOne.size()); //index used in both methods
+					sendBid=pickOne.get(index);
+				}
 			}else {
 				sendBid=bestBid; //just send something
 			}
