@@ -122,7 +122,7 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		if (canUpdateOM()) { //checks if still update-able opponent model >>note: bidding should do last bid
 			Random r1 = new Random();
 			ArrayList<BidDetails> allBidsNashConvert = new ArrayList<BidDetails>(allBidsNash);
-			Collections.sort(allBidsNashConvert, new Comparator<BidDetails>(){
+			Collections.sort(allBidsNashConvert, new Comparator<BidDetails>(){//sort the bids
 	             public int compare(BidDetails s1, BidDetails s2) {
 	                 return s1.getMyUndiscountedUtil() > s2.getMyUndiscountedUtil() ? 1 : 0;
 	              }
