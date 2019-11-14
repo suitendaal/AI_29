@@ -88,13 +88,8 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		
 		if (OurOpeningBid < 0) { // unknown if we started or they started
 			OurOpeningBid = negotiationSession.getOpponentBidHistory().size() == 0 ? 1 : 0;
-			try {
-				CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		}
+		//Won't reach if agreement is reached before time is up (60 == time)
 		else if (negotiationSession.getOpponentBidHistory().size() == negotiationSession.getTimeline().getTotalTime()-1) {
 			try {
 				CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
@@ -102,11 +97,11 @@ public class BiddingStrategy29 extends OfferingStrategy {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			target = 1; //end with a high bid
-			
-
 		}
+//		System.out.println(negotiationSession.getOpponentBidHistory().size());
+//		System.out.println(negotiationSession.getTimeline().getTotalTime()-1);
+		
 		
 		// TODO place this in init
 		double utilityGoal = target + OurOpeningBid*dBid;
@@ -123,7 +118,12 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		} else {
 			nextBid = omStrategy.getBid(bidsAboveUtilitygoal);
 		}
-		
+		try {
+			CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return nextBid;//bidsAboveUtilitygoal.get(rand.nextInt(bidsAboveUtilitygoal.size()));
 	}
 
@@ -170,24 +170,41 @@ public class BiddingStrategy29 extends OfferingStrategy {
 //			 FileWriter writer = new FileWriter(nameNew);
 			 writer.append("Own Bid");
 			 writer.append(',');
+			 writer.append(',');
 			 writer.append("Bid opponent");
+			 writer.append(',');
 			 writer.append('\n');
 			//			 for (rows : list) {
 //				writer.append(list);
 //			}
 //			 writer.writeAll(list);
 			 StringBuilder sb = new StringBuilder();
-			 for (int j = 0; j < list.size(); j++) {
-				String str = list.get(j).toString();
-				System.out.println(str);
-//				writer.write(list.get(j));
-				sb.append(str);
+			 System.out.println(list.size());
+			 System.out.println(list2.size());
+			 for (int k = 0; k < list.size(); k++) {
+				String str1 = list.get(k).toString();
+				String str2 = list2.get(k).toString();
+				sb.append(str1);
+				sb.append(',');
+				sb.append(str2);
 				sb.append('\n');
+			}
+			 //for (int j = 0; j < list2.size(); j++) {
+
+				//String str2 = list2.get(j).toString();
+//				System.out.println(str);
+				
+//				System.out.println("hier");
+//				writer.write(list.get(j));
+//				sb.append(str1);
+				//sb.append(',');
+				//sb.append(str2);
+				//sb.append('\n');
 //				writer.append(str);
 //				//writer.write(str);
 //				writer.append('\n');
 //				writer.write(str);
-			}
+			//}
 			 writer.write(sb.toString());
 //		      writer.write(sb.toString());
 			 writer.flush();
