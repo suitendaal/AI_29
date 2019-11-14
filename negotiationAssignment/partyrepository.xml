@@ -390,6 +390,9 @@
             <partyRepItem classPath="C:\Users\Sven\Documents\TU Delft\Master jaar 1\AI\Code\code3\AI_29\negotiationAssignment\bin\group29\Group29_BoaParty.class" strategyParameters="">
                 <properties/>
             </partyRepItem>
+            <partyRepItem classPath="C:\Users\Sven\Documents\TU Delft\Master jaar 1\AI\Code\code3\AI_29\negotiationAssignment\bin\group29\Group29_BoaPartyPreferencedUtility.class" strategyParameters="">
+                <properties/>
+            </partyRepItem>
         </partyRepItems>
         <domainRepItem/>
         <protocolRepItem/>
