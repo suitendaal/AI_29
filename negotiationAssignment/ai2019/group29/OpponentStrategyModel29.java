@@ -125,7 +125,6 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			Random r1 = new Random();
 			ArrayList<BidDetailsNash> allBidsNashConvert = new ArrayList<BidDetailsNash>(allBidsNash);
 			Collections.sort(allBidsNashConvert);
-			System.out.println(allBidsNashConvert);
 			int method=2; //<<<set the method
 			
 			if (method == 1) {	//Send random bid first, later send highest Nash product 
