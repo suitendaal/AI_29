@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.List;
 
+import genius.core.BidHistory;
 import genius.core.bidding.BidDetails;
 import genius.core.boaframework.BOAparameter;
 import genius.core.boaframework.NegotiationSession;
@@ -16,6 +17,10 @@ import genius.core.boaframework.OpponentModel;
 import genius.core.boaframework.SortedOutcomeSpace;
 import genius.core.misc.Range;
 
+import java.io.*;
+import java.util.ArrayList;
+//import com.opencsv.CSVReader;
+//import com.opencsv.CSVWriter;
 
 public class BiddingStrategy29 extends OfferingStrategy {
 
@@ -83,9 +88,24 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		
 		if (OurOpeningBid < 0) { // unknown if we started or they started
 			OurOpeningBid = negotiationSession.getOpponentBidHistory().size() == 0 ? 1 : 0;
+			try {
+				CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else if (negotiationSession.getOpponentBidHistory().size() == negotiationSession.getTimeline().getTotalTime()-1) {
+			try {
+				CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			target = 1; //end with a high bid
+			
+
 		}
 		
 		// TODO place this in init
@@ -126,4 +146,59 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	public String getName() {
 		return "Bidding Strategy group 29";
 	}
+	
+	public void CsvMaker(List<BidDetails> list, List<BidDetails> list2) throws IOException {
+		
+		String name= "bid.csv";
+		File newFile= new File(name);
+		//boolean exists name.exist;
+		//boolean test = name.isFile();
+		boolean test = newFile.exists();
+		int i=1;
+		String nameNew=name;
+		while(test) { //test if file exists and create a new name 
+			nameNew= "bid"+i+".csv";
+			newFile= new File(nameNew);
+			test = newFile.exists();
+			i++;
+		}
+		try ( FileWriter writer = new FileWriter(nameNew)) {
+		 //try (PrintWriter writer = new PrintWriter(new File(nameNew))) {
+			 
+		      //StringBuilder sb = new StringBuilder();
+			 //CSVWriter sb = new CSVWriter(new FileWriter(csv));
+//			 FileWriter writer = new FileWriter(nameNew);
+			 writer.append("Own Bid");
+			 writer.append(',');
+			 writer.append("Bid opponent");
+			 writer.append('\n');
+			//			 for (rows : list) {
+//				writer.append(list);
+//			}
+//			 writer.writeAll(list);
+			 StringBuilder sb = new StringBuilder();
+			 for (int j = 0; j < list.size(); j++) {
+				String str = list.get(j).toString();
+				System.out.println(str);
+//				writer.write(list.get(j));
+				sb.append(str);
+				sb.append('\n');
+//				writer.append(str);
+//				//writer.write(str);
+//				writer.append('\n');
+//				writer.write(str);
+			}
+			 writer.write(sb.toString());
+//		      writer.write(sb.toString());
+			 writer.flush();
+			 writer.close();
+		      System.out.println("Logging bids done!");
+
+		    } catch (FileNotFoundException e) {
+		      System.out.println(e.getMessage());
+		    }
+	}
+	
 }
+
+
