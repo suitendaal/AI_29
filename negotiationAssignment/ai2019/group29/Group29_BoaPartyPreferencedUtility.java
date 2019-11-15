@@ -108,14 +108,13 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 		for (int i = 0; i < bids.size(); i++) {
 			Bid bid = bids.get(i);
 			
-			valueTerm = Math.pow((bids.size() + 1 - i) / (bids.size() + 1), zeta);
+			valueTerm = Math.pow((bids.size() + 1. - i) / (bids.size() + 1), zeta);
 			
 			for(Issue issue : bid.getIssues()) {
 				HashMap<Value, Double> hmv = issueValues.get(issue);
 				Value value = bid.getValue(issue);
 				Double j = hmv.get(value);
 				hmv.put(value, (j == null) ? valueTerm : j + valueTerm );
-				
 				if (i != 0) {
 					Bid previousBid = bids.get(i-1);
 
