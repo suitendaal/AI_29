@@ -2,6 +2,7 @@ package group29;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,7 @@ import genius.core.boaframework.OpponentModel;
 import genius.core.issue.Issue;
 import genius.core.issue.IssueDiscrete;
 import genius.core.issue.Objective;
+import genius.core.issue.Value;
 import genius.core.issue.ValueDiscrete;
 import genius.core.parties.NegotiationInfo;
 import genius.core.uncertainty.AdditiveUtilitySpaceFactory;
@@ -50,7 +52,7 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 	private double goldenValue;
 
 	private double gamma;
-	private double zeta;
+	private double zeta = 0.5;
 	
 	@Override
 	public void init(NegotiationInfo info) 
@@ -90,26 +92,58 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 		
 		List<Bid> bids = userModel.getBidRanking().getBidOrder();
 		Collections.reverse(bids);
-		HashMap<Issue, Double> issueValues = new HashMap<Issue, Double>();
-		ArrayList<Double> weights = new ArrayList();
+		HashMap<Issue, HashMap<Value, Double>> issueValues = new HashMap<>();
+		HashMap<Issue, Double> weights = new HashMap<Issue, Double>();
 		
-		for (int i = 0; i < issues.size(); i++) {
-			weights.add(1.0/issues.size());
+		for (IssueDiscrete issue : issues) {
+			weights.put(issue, 1.0/issues.size());
+			issueValues.put(issue, new HashMap<>());
+			for (Value value : issue.getValues()) {
+				issueValues.get(issue).put(value, 0.0);
+			}
 		}
 		
 		double valueTerm = 1;
 		double weightTerm = 0.1;
-		for (int i = 1; i < bids.size(); i++) {
+		for (int i = 0; i < bids.size(); i++) {
 			Bid bid = bids.get(i);
-			Bid previousBid = bids.get(i-1);
-			valueTerm = 1;
+			
+			valueTerm = Math.pow((bids.size() + 1 - i) / (bids.size() + 1), zeta);
+			
 			for(Issue issue : bid.getIssues()) {
-				Double j = issueValues.get(issue);
-				issueValues.put(issue, (j == null) ? valueTerm : j + valueTerm );
+				HashMap<Value, Double> hmv = issueValues.get(issue);
+				Value value = bid.getValue(issue);
+				Double j = hmv.get(value);
+				hmv.put(value, (j == null) ? valueTerm : j + valueTerm );
+				
+				if (i != 0) {
+					Bid previousBid = bids.get(i-1);
+
+					if (previousBid.getValue(issue).equals(value)) {
+						Double w = weights.get(issue);
+						weights.put(issue, w + weightTerm);
+					}
+				}
+			}
+			normalize(weights);
+		}
+		for (Issue issue : weights.keySet()) {
+			additiveUtilitySpaceFactory.setWeight(issue, weights.get(issue));
+			
+			HashMap<Value, Double> hmv = issueValues.get(issue);
+			Double maxval = -1e99;
+			for(Value val : hmv.keySet()) {
+				Double testval = hmv.get(val);
+				if(testval > maxval) {
+					maxval = testval;
+				}
 			}
 			
+			for(Value val : hmv.keySet()) {
+				Double currentval = hmv.get(val);
+				additiveUtilitySpaceFactory.setUtility(issue, (ValueDiscrete) val, currentval / maxval);
+			}
 		}
-		
 		
 		// Normalize the weights, since we picked them randomly in [0, 1]
 		additiveUtilitySpaceFactory.normalizeWeights();
@@ -118,8 +152,14 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 		return additiveUtilitySpaceFactory.getUtilitySpace();
 	}
 	
-	
-	
+	private void normalize(HashMap<Issue, Double> weights) {
+		Double totalsum = weights.values().stream().mapToDouble(i -> i).sum();
+		for (Issue i : weights.keySet()) {
+			Double w = weights.get(i);
+			weights.put(i, w/totalsum);
+		}
+	}
+
 	@Override
 	public String getDescription() 
 	{

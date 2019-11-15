@@ -15,6 +15,7 @@ import genius.core.issue.IssueDiscrete;
 import genius.core.issue.ValueDiscrete;
 import genius.core.parties.NegotiationInfo;
 import genius.core.uncertainty.AdditiveUtilitySpaceFactory;
+import genius.core.uncertainty.UserModel;
 import genius.core.utility.AbstractUtilitySpace;
 
 /**
@@ -72,6 +73,7 @@ public class Group29_BoaParty extends BoaParty
 	{
 		AdditiveUtilitySpaceFactory additiveUtilitySpaceFactory = new AdditiveUtilitySpaceFactory(getDomain());
 		List<IssueDiscrete> issues = additiveUtilitySpaceFactory.getIssues();
+		
 		for (IssueDiscrete i : issues)
 		{
 			additiveUtilitySpaceFactory.setWeight(i, rand.nextDouble());
