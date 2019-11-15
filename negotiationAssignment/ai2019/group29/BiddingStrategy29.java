@@ -91,6 +91,8 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		}
 		//Won't reach if agreement is reached before time is up (60 == time)
 		else if (negotiationSession.getOpponentBidHistory().size() == negotiationSession.getTimeline().getTotalTime()-1) {
+			//CSV output if negotation ends due to time 
+			//TODO: Add one for deal before time is up, not after every bid (what currently happens)
 			try {
 				CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
 			} catch (IOException e) {
@@ -118,6 +120,8 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		} else {
 			nextBid = omStrategy.getBid(bidsAboveUtilitygoal);
 		}
+		//Csv output after every bid 
+		//TODO: Find the last place(=after last bid) to call this!
 		try {
 			CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
 		} catch (IOException e) {
@@ -146,7 +150,9 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	public String getName() {
 		return "Bidding Strategy group 29";
 	}
-	
+	public void CsvSpace(List<BidDetails> list, List<BidDetails> list2) throws IOException {
+		
+	}
 	public void CsvMaker(List<BidDetails> list, List<BidDetails> list2) throws IOException {
 		
 		String name= "bid.csv";

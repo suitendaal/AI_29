@@ -76,10 +76,10 @@ raw(R) = {NaN}; % Replace non-numeric cells
 
 %% Create output variable
 bid42 = table;
-bid42.OwnBid = cell2mat(raw(:, 1));
-bid42.VarName2 = cell2mat(raw(:, 2));
-bid42.Bidopponent = cell2mat(raw(:, 3));
-bid42.VarName4 = cell2mat(raw(:, 4));
+bid42.OwnBid = cell2mat(raw(2:end, 1));
+bid42.VarName2 = cell2mat(raw(2:end, 2));
+bid42.Bidopponent = cell2mat(raw(2:end, 3));
+bid42.VarName4 = cell2mat(raw(2:end, 4));
 
 %% Clear temporary variables
 clearvars filename delimiter formatSpec fileID dataArray ans raw col numericData rawData row regexstr result numbers invalidThousandsSeparator thousandsRegExp R;
