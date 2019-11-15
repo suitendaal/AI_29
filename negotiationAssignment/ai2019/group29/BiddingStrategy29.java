@@ -101,8 +101,7 @@ public class BiddingStrategy29 extends OfferingStrategy {
 			}
 			target = 1; //end with a high bid
 		}
-//		System.out.println(negotiationSession.getOpponentBidHistory().size());
-//		System.out.println(negotiationSession.getTimeline().getTotalTime()-1);
+
 		
 		
 		// TODO place this in init
@@ -157,8 +156,7 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		
 		String name= "bid.csv";
 		File newFile= new File(name);
-		//boolean exists name.exist;
-		//boolean test = name.isFile();
+
 		boolean test = newFile.exists();
 		int i=1;
 		String nameNew=name;
@@ -169,21 +167,14 @@ public class BiddingStrategy29 extends OfferingStrategy {
 			i++;
 		}
 		try ( FileWriter writer = new FileWriter(nameNew)) {
-		 //try (PrintWriter writer = new PrintWriter(new File(nameNew))) {
-			 
-		      //StringBuilder sb = new StringBuilder();
-			 //CSVWriter sb = new CSVWriter(new FileWriter(csv));
-//			 FileWriter writer = new FileWriter(nameNew);
+
 			 writer.append("Own Bid");
 			 writer.append(',');
 			 writer.append(',');
 			 writer.append("Bid opponent");
 			 writer.append(',');
 			 writer.append('\n');
-			//			 for (rows : list) {
-//				writer.append(list);
-//			}
-//			 writer.writeAll(list);
+
 			 StringBuilder sb = new StringBuilder();
 			 System.out.println(list.size());
 			 System.out.println(list2.size());
@@ -195,24 +186,8 @@ public class BiddingStrategy29 extends OfferingStrategy {
 				sb.append(str2);
 				sb.append('\n');
 			}
-			 //for (int j = 0; j < list2.size(); j++) {
 
-				//String str2 = list2.get(j).toString();
-//				System.out.println(str);
-				
-//				System.out.println("hier");
-//				writer.write(list.get(j));
-//				sb.append(str1);
-				//sb.append(',');
-				//sb.append(str2);
-				//sb.append('\n');
-//				writer.append(str);
-//				//writer.write(str);
-//				writer.append('\n');
-//				writer.write(str);
-			//}
 			 writer.write(sb.toString());
-//		      writer.write(sb.toString());
 			 writer.flush();
 			 writer.close();
 		      System.out.println("Logging bids done!");
