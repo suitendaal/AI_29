@@ -15,7 +15,12 @@ import genius.core.boaframework.OMStrategy;
 import genius.core.boaframework.OfferingStrategy;
 import genius.core.boaframework.OpponentModel;
 import genius.core.boaframework.SortedOutcomeSpace;
+import genius.core.events.TournamentEvent;
 import genius.core.misc.Range;
+import genius.core.session.TournamentManager;
+import genius.core.tournament.VariablesAndValues.TournamentValue;
+import genius.core.xml.SimpleElement;
+import genius.gui.actions.Tournament;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -127,11 +132,39 @@ public class BiddingStrategy29 extends OfferingStrategy {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//Random place to output utilityspace
+		try {
+//			CsvMaker(negotiationSession.getUtilitySpace().toXml());
+//			File file = new File(negotiationSession.getUtilitySpace().toXML().getText().toString());
+//			writeUsingOutputStream(negotiationSession.getUtilitySpace().toXML().getText().toString());
+//			File file = new File("c:/newfile.txt");
+//			fop = new FileOutputStream(file);
+//			// if file doesnt exists, then create it
+//			if (!file.exists()) {
+//				file.createNewFile();
+//			}
+			
+			negotiationSession.getUtilitySpace().toXML().saveToFile("SPACE.xml");
+//			getNegotiationSession().getUtilitySpace().toXML().saveToFile("Space.xml");
+//			writeUsingOutputStream(negotiationSession.getDomain().toString());
+//			writeUsingFileWriter(negotiationSession.getDomain().toString());
+//			fop.write(se.saveToFile("testfile"););
+//			fop.flush();
+//			fop.close();
+//			writeUsingFileWriter(negotiationSession.getOutcomeSpace().toString());
+//			writeUsingFileWriter(negotiationSession.getSessionData().getData(null).toString());
+//			genius.core.tournament.VariablesAndValues.TournamentValue;
+//			writeUsingFileWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return nextBid;//bidsAboveUtilitygoal.get(rand.nextInt(bidsAboveUtilitygoal.size()));
 	}
 
 	public NegotiationSession getNegotiationSession() {
 		return negotiationSession;
+		
 	}
 
 	// TODO: what to do?
@@ -152,6 +185,48 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	public void CsvSpace(List<BidDetails> list, List<BidDetails> list2) throws IOException {
 		
 	}
+	
+	 /**
+     * Use Streams when you are dealing with raw data
+     * @param data
+     */
+    private static void writeUsingOutputStream(String data) {
+        OutputStream os = null;
+        try {
+            os = new FileOutputStream(new File("os.txt"));
+            os.write(data.getBytes(), 0, data.length());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            try {
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    /**
+     * Use FileWriter when number of write operations are less
+     * @param data
+     */
+    private static void writeUsingFileWriter(String data) {
+        File file = new File("FileWriter.txt");
+        FileWriter fr = null;
+        try {
+            fr = new FileWriter(file);
+            fr.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally{
+            //close resources
+            try {
+                fr.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
 	public void CsvMaker(List<BidDetails> list, List<BidDetails> list2) throws IOException {
 		
 		String name= "bid.csv";
