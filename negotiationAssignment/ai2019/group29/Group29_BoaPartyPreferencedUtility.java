@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import genius.core.Bid;
+import genius.core.Domain;
 import genius.core.bidding.BidDetails;
 import genius.core.boaframework.AcceptanceStrategy;
 import genius.core.boaframework.BoaParty;
@@ -22,9 +23,12 @@ import genius.core.issue.Value;
 import genius.core.issue.ValueDiscrete;
 import genius.core.parties.NegotiationInfo;
 import genius.core.uncertainty.AdditiveUtilitySpaceFactory;
+import genius.core.uncertainty.ExperimentalUserModel;
 import genius.core.utility.AbstractUtilitySpace;
+import genius.core.utility.AdditiveUtilitySpace;
 import genius.core.utility.Evaluator;
 import genius.core.utility.EvaluatorDiscrete;
+import genius.core.utility.UncertainAdditiveUtilitySpace;
 
 /**
  * This example shows how BOA components can be made into an independent
@@ -52,7 +56,7 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 	private double goldenValue;
 
 	private double gamma;
-	private double zeta = 0.5;
+	private double zeta;
 	
 	@Override
 	public void init(NegotiationInfo info) 
@@ -87,66 +91,88 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 	@Override
 	public AbstractUtilitySpace estimateUtilitySpace() 
 	{
-		AdditiveUtilitySpaceFactory additiveUtilitySpaceFactory = new AdditiveUtilitySpaceFactory(getDomain());
-		List<IssueDiscrete> issues = additiveUtilitySpaceFactory.getIssues();
-		
+		AdditiveUtilitySpaceFactory additiveUtilitySpaceFactory = null;
 		List<Bid> bids = userModel.getBidRanking().getBidOrder();
 		Collections.reverse(bids);
-		HashMap<Issue, HashMap<Value, Double>> issueValues = new HashMap<>();
-		HashMap<Issue, Double> weights = new HashMap<Issue, Double>();
-		
-		for (IssueDiscrete issue : issues) {
-			weights.put(issue, 1.0/issues.size());
-			issueValues.put(issue, new HashMap<>());
-			for (Value value : issue.getValues()) {
-				issueValues.get(issue).put(value, 0.0);
-			}
-		}
-		
-		double valueTerm = 1;
-		double weightTerm = 0.1;
-		for (int i = 0; i < bids.size(); i++) {
-			Bid bid = bids.get(i);
+		Domain domain = getDomain();
+		ExperimentalUserModel e = (ExperimentalUserModel) userModel;
+		UncertainAdditiveUtilitySpace realUSpace = e.getRealUtilitySpace();
+		for (double gamma = 0; gamma < 20; gamma += 1) {
 			
-			valueTerm = Math.pow((bids.size() + 1. - i) / (bids.size() + 1), zeta);
+			additiveUtilitySpaceFactory= new AdditiveUtilitySpaceFactory(domain);
+			List<IssueDiscrete> issues = additiveUtilitySpaceFactory.getIssues();
 			
-			for(Issue issue : bid.getIssues()) {
-				HashMap<Value, Double> hmv = issueValues.get(issue);
-				Value value = bid.getValue(issue);
-				Double j = hmv.get(value);
-				hmv.put(value, (j == null) ? valueTerm : j + valueTerm );
-				if (i != 0) {
-					Bid previousBid = bids.get(i-1);
 
-					if (previousBid.getValue(issue).equals(value)) {
-						Double w = weights.get(issue);
-						weights.put(issue, w + weightTerm);
+			HashMap<Issue, HashMap<Value, Double>> issueValues = new HashMap<>();
+			HashMap<Issue, Double> weights = new HashMap<Issue, Double>();
+			
+			for (IssueDiscrete issue : issues) {
+				weights.put(issue, 1.0/issues.size());
+				issueValues.put(issue, new HashMap<>());
+				for (Value value : issue.getValues()) {
+					issueValues.get(issue).put(value, 0.0);
+				}
+			}
+			
+			double valueTerm; // init
+			double weightTerm; // init
+			int zeta = 18; // values
+//			gamma = 0.2; // weights
+			
+			for (int i = 0; i < bids.size(); i++) {
+				Bid bid = bids.get(i);
+				
+				valueTerm = Math.pow((bids.size() + 1. - i) / (bids.size() + 1), zeta);
+				weightTerm = Math.pow((bids.size() + 1. - i) / (bids.size() + 1), gamma);
+				
+				for(Issue issue : bid.getIssues()) {
+					HashMap<Value, Double> hmv = issueValues.get(issue);
+					Value value = bid.getValue(issue);
+					Double j = hmv.get(value);
+					hmv.put(value, (j == null) ? valueTerm : j + valueTerm );
+					if (i != 0) {
+						Bid previousBid = bids.get(i-1);
+	
+						if (previousBid.getValue(issue).equals(value)) {
+							Double w = weights.get(issue);
+							weights.put(issue, w + weightTerm);
+						}
 					}
 				}
+				normalize(weights);
 			}
-			normalize(weights);
-		}
-		for (Issue issue : weights.keySet()) {
-			additiveUtilitySpaceFactory.setWeight(issue, weights.get(issue));
-			
-			HashMap<Value, Double> hmv = issueValues.get(issue);
-			Double maxval = -1e99;
-			for(Value val : hmv.keySet()) {
-				Double testval = hmv.get(val);
-				if(testval > maxval) {
-					maxval = testval;
+			for (Issue issue : weights.keySet()) {
+				additiveUtilitySpaceFactory.setWeight(issue, weights.get(issue));
+				
+				HashMap<Value, Double> hmv = issueValues.get(issue);
+				Double maxval = 0.0;
+				for(Value val : hmv.keySet()) {
+					Double testval = hmv.get(val);
+					if(testval > maxval) {
+						maxval = testval;
+					}
+				}
+				
+				for(Value val : hmv.keySet()) {
+					Double currentval = hmv.get(val);
+					additiveUtilitySpaceFactory.setUtility(issue, (ValueDiscrete) val, currentval / maxval);
 				}
 			}
 			
-			for(Value val : hmv.keySet()) {
-				Double currentval = hmv.get(val);
-				additiveUtilitySpaceFactory.setUtility(issue, (ValueDiscrete) val, currentval / maxval);
+			// Normalize the weights, since we picked them randomly in [0, 1]
+			additiveUtilitySpaceFactory.normalizeWeights();
+			
+
+			AdditiveUtilitySpace estimatedUSpace =  additiveUtilitySpaceFactory.getUtilitySpace();
+			
+			Double sum = 0.0;
+			for (int i = 0; i < bids.size(); i++) {
+				Bid bid = bids.get(i);
+				Double error = Math.pow(realUSpace.getUtility(bid)-estimatedUSpace.getUtility(bid), 2);
+				sum += error;
 			}
+			System.out.format("gamma=%f, errorsum=%f\n",gamma, sum);
 		}
-		
-		// Normalize the weights, since we picked them randomly in [0, 1]
-		additiveUtilitySpaceFactory.normalizeWeights();
-		
 		// The factory is done with setting all parameters, now return the estimated utility space
 		return additiveUtilitySpaceFactory.getUtilitySpace();
 	}
