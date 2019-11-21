@@ -103,12 +103,16 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 			}
 		}
 		
-		double valueTerm = 1;
-		double weightTerm = 0.1;
+		double valueTerm;
+		double weightTerm;
+		zeta = 20;
+		gamma = 4;
 		for (int i = 0; i < bids.size(); i++) {
 			Bid bid = bids.get(i);
 			
 			valueTerm = Math.pow((bids.size() + 1. - i) / (bids.size() + 1), zeta);
+			weightTerm = Math.pow((bids.size() + 1. - i) / (bids.size() + 1), gamma);
+
 			
 			for(Issue issue : bid.getIssues()) {
 				HashMap<Value, Double> hmv = issueValues.get(issue);
