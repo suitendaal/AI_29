@@ -97,7 +97,7 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 		Domain domain = getDomain();
 		ExperimentalUserModel e = (ExperimentalUserModel) userModel;
 		UncertainAdditiveUtilitySpace realUSpace = e.getRealUtilitySpace();
-		for (double gamma = 0; gamma < 20; gamma += 1) {
+		for (gamma = 0; gamma < 50; gamma += 1) {
 			
 			additiveUtilitySpaceFactory= new AdditiveUtilitySpaceFactory(domain);
 			List<IssueDiscrete> issues = additiveUtilitySpaceFactory.getIssues();
@@ -116,8 +116,8 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 			
 			double valueTerm; // init
 			double weightTerm; // init
-			int zeta = 18; // values
-//			gamma = 0.2; // weights
+			zeta = 14; // values
+			//gamma = 4; // weights
 			
 			for (int i = 0; i < bids.size(); i++) {
 				Bid bid = bids.get(i);
@@ -171,7 +171,7 @@ public class Group29_BoaPartyPreferencedUtility extends BoaParty
 				Double error = Math.pow(realUSpace.getUtility(bid)-estimatedUSpace.getUtility(bid), 2);
 				sum += error;
 			}
-			System.out.format("gamma=%f, errorsum=%f\n",gamma, sum);
+			System.out.format("%f, %f\n",gamma, sum/bids.size());
 		}
 		// The factory is done with setting all parameters, now return the estimated utility space
 		return additiveUtilitySpaceFactory.getUtilitySpace();
