@@ -1,6 +1,5 @@
 function [Agents, Data, Total, Util ] = csvToData2(csvName)
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
+%Read the data from the csv into variables
 filename=csvName;
 m = readtable(filename,...
     'Delimiter',';','ReadVariableNames',true);

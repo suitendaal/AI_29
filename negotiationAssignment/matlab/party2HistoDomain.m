@@ -1,6 +1,6 @@
 function [] = party2HistoDomain(TotalS11, Util11,n,f,name,filename,x,y)
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
+%Makes a histogram for the given domain for utilities
+
 TC1=[];TB1=[];TH1=[];TC2=[];TB2=[];TH2=[];
 for k=1:length(Util11)
     d=TotalS11;

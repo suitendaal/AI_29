@@ -1,8 +1,5 @@
 function [] = data2PaNa(Total,Util,n, name)
-
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
-
+%Plot distance to Pareto and Nash of a given domain
 %% Distance to Nash
 TC1=[];TB1=[];TH1=[];
 for k=1:length(Util)

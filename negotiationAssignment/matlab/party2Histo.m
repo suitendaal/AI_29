@@ -1,6 +1,5 @@
 function [] = party2Histo(TotalS11, Util11,n,f,x)
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
+%Make as histogram of a party for ultilities
 TC1=[];TB1=[];TH1=[];TC2=[];TB2=[];TH2=[];
 for k=1:length(Util11)
     d=TotalS11;
@@ -41,17 +40,17 @@ end
 if f
 figure; hold on;
 subplot(2,3,1); 
-h=histogram(TC1,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Conceder vs Us");xlabel("Own Utility");ylabel("Number of occurances");
+histogram(TC1,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Conceder vs Us");xlabel("Own Utility");ylabel("Number of occurances");
 subplot(2,3,2);
-h=histogram(TB1,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Boulware vs Us");xlabel("Own Utility");ylabel("Number of occurances");
+histogram(TB1,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Boulware vs Us");xlabel("Own Utility");ylabel("Number of occurances");
 subplot(2,3,3);
-h=histogram(TH1,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Hardliner vs Us ");xlabel("Own Utility");ylabel("Number of occurances");
+histogram(TH1,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Hardliner vs Us ");xlabel("Own Utility");ylabel("Number of occurances");
 subplot(2,3,4);
-h=histogram(TC2,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Us vs Conceder ");xlabel("Own Utility");ylabel("Number of occurances");
+histogram(TC2,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Us vs Conceder ");xlabel("Own Utility");ylabel("Number of occurances");
 subplot(2,3,5);
-h=histogram(TB2,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Us vs Boulware");xlabel("Own Utility");ylabel("Number of occurances");
+histogram(TB2,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Us vs Boulware");xlabel("Own Utility");ylabel("Number of occurances");
 subplot(2,3,6);
-h=histogram(TH2,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Us vs Hardliner"); xlabel("Own Utility");ylabel("Number of occurances");
+histogram(TH2,n,'BinWidth',0.05,'BinLimits',[0,1]); title("Us vs Hardliner"); xlabel("Own Utility");ylabel("Number of occurances");
 
 sgtitle(x);
 else
