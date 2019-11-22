@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+
+import agents.anac.y2010.Southampton.analysis.BidSpace;
+
 import java.util.List;
 
 import genius.core.BidHistory;
@@ -26,6 +29,7 @@ import java.io.*;
 import java.util.ArrayList;
 //import com.opencsv.CSVReader;
 //import com.opencsv.CSVWriter;
+import genius.core.analysis.ParetoFrontier; // ParetoFrontier
 
 public class BiddingStrategy29 extends OfferingStrategy {
 
@@ -98,12 +102,12 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		else if (negotiationSession.getOpponentBidHistory().size() == negotiationSession.getTimeline().getTotalTime()-1) {
 			//CSV output if negotation ends due to time 
 			//TODO: Add one for deal before time is up, not after every bid (what currently happens)
-			try {
-				CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			target = 1; //end with a high bid
 		}
 
@@ -126,14 +130,15 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		}
 		//Csv output after every bid 
 		//TODO: Find the last place(=after last bid) to call this!
-		try {
-			CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			CsvMaker(negotiationSession.getOwnBidHistory().getHistory(),negotiationSession.getOpponentBidHistory().getHistory());
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		//Random place to output utilityspace
-		try {
+		//dit block om output te testen
+//		try {
 //			CsvMaker(negotiationSession.getUtilitySpace().toXml());
 //			File file = new File(negotiationSession.getUtilitySpace().toXML().getText().toString());
 //			writeUsingOutputStream(negotiationSession.getUtilitySpace().toXML().getText().toString());
@@ -144,7 +149,9 @@ public class BiddingStrategy29 extends OfferingStrategy {
 //				file.createNewFile();
 //			}
 			
-			negotiationSession.getUtilitySpace().toXML().saveToFile("SPACE.xml");
+//			negotiationSession.getUtilitySpace().toXML().saveToFile("SPACE.xml");
+//			Pareto1=BidSpace(util1, util2, 0, 0);
+//			negotiationSession.getOutcomeSpace().
 //			getNegotiationSession().getUtilitySpace().toXML().saveToFile("Space.xml");
 //			writeUsingOutputStream(negotiationSession.getDomain().toString());
 //			writeUsingFileWriter(negotiationSession.getDomain().toString());
@@ -155,10 +162,10 @@ public class BiddingStrategy29 extends OfferingStrategy {
 //			writeUsingFileWriter(negotiationSession.getSessionData().getData(null).toString());
 //			genius.core.tournament.VariablesAndValues.TournamentValue;
 //			writeUsingFileWriter();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return nextBid;//bidsAboveUtilitygoal.get(rand.nextInt(bidsAboveUtilitygoal.size()));
 	}
 

@@ -1,0 +1,12 @@
+sep=;
+Run time (s);Round;Exception;deadline;Agreement;Discounted;#agreeing;min.util.;max.util.;Dist. to Pareto;Dist. to Nash;Social Welfare;Agent 1;Agent 2;Utility 1;Utility 2;Disc. Util. 1;Disc. Util. 2;Perceived. Util. 1;Perceived. Util. 2;Profile 1;Profile 2
+0,082;61;;60rounds;Yes;No;2;0,38063;0,90000;0,04161;0,28935;1,28063;Group29_BoaParty@53264;Group29_BoaParty@53265;0.9;0.380625;0.9;0.380625;0.9;0.380625;Jobs_util1.xml;Jobs_util2.xml
+0,068;60;;60rounds;Yes;No;2;0,41063;0,90000;0,03579;0,26101;1,31063;Group29_BoaParty@53266;Group29_BoaParty@53267;0.9;0.410625;0.9;0.410625;0.9;0.410625;Jobs_util1.xml;Jobs_util2.xml
+0,069;60;;60rounds;Yes;No;2;0,41063;0,90000;0,03579;0,26101;1,31063;Group29_BoaParty@53268;Group29_BoaParty@53269;0.9;0.410625;0.9;0.410625;0.9;0.410625;Jobs_util1.xml;Jobs_util2.xml
+0,070;60;;60rounds;Yes;No;2;0,47563;0,91000;0,00000;0,20591;1,38563;Group29_BoaParty@53270;Group29_BoaParty@53271;0.91;0.475625;0.91;0.475625;0.91;0.475625;Jobs_util1.xml;Jobs_util2.xml
+0,072;60;;60rounds;Yes;No;2;0,47563;0,91000;0,00000;0,20591;1,38563;Group29_BoaParty@53272;Group29_BoaParty@53273;0.91;0.475625;0.91;0.475625;0.91;0.475625;Jobs_util1.xml;Jobs_util2.xml
+0,072;60;;60rounds;Yes;No;2;0,47563;0,91000;0,00000;0,20591;1,38563;Group29_BoaParty@53274;Group29_BoaParty@53275;0.91;0.475625;0.91;0.475625;0.91;0.475625;Jobs_util1.xml;Jobs_util2.xml
+0,069;60;;60rounds;Yes;No;2;0,47563;0,91000;0,00000;0,20591;1,38563;Group29_BoaParty@53276;Group29_BoaParty@53277;0.91;0.475625;0.91;0.475625;0.91;0.475625;Jobs_util1.xml;Jobs_util2.xml
+0,079;61;;60rounds;Yes;No;2;0,38063;0,90000;0,04161;0,28935;1,28063;Group29_BoaParty@53278;Group29_BoaParty@53279;0.9;0.380625;0.9;0.380625;0.9;0.380625;Jobs_util1.xml;Jobs_util2.xml
+0,071;60;;60rounds;Yes;No;2;0,47563;0,91000;0,00000;0,20591;1,38563;Group29_BoaParty@53280;Group29_BoaParty@53281;0.91;0.475625;0.91;0.475625;0.91;0.475625;Jobs_util1.xml;Jobs_util2.xml
+0,072;60;;60rounds;Yes;No;2;0,40312;0,93500;0,00000;0,28175;1,33813;Group29_BoaParty@53282;Group29_BoaParty@53283;0.9350000000000015;0.40312499999999996;0.9350000000000015;0.40312499999999996;0.9350000000000015;0.40312499999999996;Jobs_util1.xml;Jobs_util2.xml
