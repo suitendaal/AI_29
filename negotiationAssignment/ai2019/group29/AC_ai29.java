@@ -18,7 +18,9 @@ import genius.core.boaframework.OpponentModel;
  * 
  * Decoupling Negotiating Agents to Explore the Space of Negotiation Strategies
  * T. Baarslag, K. Hindriks, M. Hendrikx, A. Dirkzwager, C.M. Jonker
- * 
+ * extended by
+ * J. Dumont, L. van der Knaap, W. Kok, R. Luijendijk, S. Uitendaal
+ * Group 29
  */
 public class AC_ai29 extends AcceptanceStrategy {
 
@@ -70,10 +72,11 @@ public class AC_ai29 extends AcceptanceStrategy {
 		double lastOpponentBidUtil = negotiationSession.getOpponentBidHistory()
 				.getLastBidDetails().getMyUndiscountedUtil();
 		
-		if (OurOpeningBid < 0) { // unknown if we started or they started
+		if (OurOpeningBid < 0) { // Starts at -1 and is set to 0 or 1 depening on who has the opening bid
 			OurOpeningBid = negotiationSession.getOwnBidHistory().size() == 0 && negotiationSession.getOpponentBidHistory().size() == 1 ? 0 : 1;
 		}
 		
+		// time dependent variable that determines when to accept a bid
 		double f_t = (-Math.pow(negotiationSession.getTime(), b) + 1) * a * (1-OurOpeningBid) + OurOpeningBid;
 		
 		if (lastOpponentBidUtil >= f_t) {

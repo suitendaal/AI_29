@@ -5,6 +5,7 @@ import java.io.Serializable;
 import genius.core.Bid;
 import genius.core.bidding.BidDetails;
 
+// extra class that allows BidDetails to be compared.
 public class BidDetailsNash implements Serializable, Comparable<BidDetailsNash> {
 	
 	public double nashProduct = 0;

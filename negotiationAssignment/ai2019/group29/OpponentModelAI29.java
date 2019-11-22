@@ -23,9 +23,10 @@ import genius.core.utility.EvaluatorDiscrete;
 /**
  * BOA framework implementation of the HardHeaded Frequecy Model.
  * 
- * Default: learning coef l = 0.2; learnValueAddition v = 1.0
- * 
  * paper: https://ii.tudelft.nl/sites/default/files/boa.pdf
+ * extended by
+ * J. Dumont, L. van der Knaap, W. Kok, R. Luijendijk, S. Uitendaal
+ * Group 29
  */
 public class OpponentModelAI29 extends OpponentModel {
 
@@ -50,6 +51,8 @@ public class OpponentModelAI29 extends OpponentModel {
 	public void init(NegotiationSession negotiationSession,
 			Map<String, Double> parameters) {
 		this.negotiationSession = negotiationSession;
+		
+		// set variables
 		if (parameters != null && parameters.get("l") != null) {
 			learnCoef = parameters.get("l");
 		} else {
@@ -86,8 +89,8 @@ public class OpponentModelAI29 extends OpponentModel {
 	@Override
 	public void updateModel(Bid opponentBid, double time) {
 		
+		// get time dependent variables
 		double term = Math.pow(1- time, gamma);
-		//value should be int << see class valueDiscrete
 		int term2 = (int) Math.ceil(Math.pow((negotiationSession.getTimeline().getTotalTime() - 1) * (1 - time), zeta));
 		
 		if (negotiationSession.getOpponentBidHistory().size() < 2) {
@@ -163,7 +166,7 @@ public class OpponentModelAI29 extends OpponentModel {
 
 	@Override
 	public String getName() {
-		return "HardHeaded Frequency Model1";
+		return "Time dependent hardheaded model";
 	}
 
 	@Override

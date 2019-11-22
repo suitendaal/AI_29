@@ -16,14 +16,17 @@ import genius.core.boaframework.OpponentModel;
 import genius.core.boaframework.SortedOutcomeSpace;
 import genius.core.misc.Range;
 
-
+/**
+ * implemented by
+ * J. Dumont, L. van der Knaap, W. Kok, R. Luijendijk, S. Uitendaal
+ * Group 29
+ */
 public class BiddingStrategy29 extends OfferingStrategy {
 
 	private double e;
 	private SortedOutcomeSpace outcomespace;
 	
 	private int OurOpeningBid = -1; 
-	//* dBid + target < 1 *//
 	private double dBid = 0.2;
 	private double target = 0.7; // target gets updated if turn 1
 	private double targetDecrease = 0.01;
@@ -34,7 +37,6 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	 */
 	@Override
 	public void init(NegotiationSession negoSession, OpponentModel model, OMStrategy oms,
-	//public void init(NegotiationSession negoSession, OpponentModel om, OMStrategy oms,
 			Map<String, Double> parameters) throws Exception {
 		super.init(negoSession, parameters);
 		if (parameters.get("e") != null) {
@@ -67,7 +69,6 @@ public class BiddingStrategy29 extends OfferingStrategy {
 
 	@Override
 	public BidDetails determineOpeningBid() {
-//	public List<BidDetails> determineOpeningBid() {
 		return determineNextBid();
 	}
 
@@ -79,16 +80,15 @@ public class BiddingStrategy29 extends OfferingStrategy {
 	 */
 	@Override
 	public BidDetails determineNextBid() {
-//	public List<BidDetails> determineNextBid() {
 		
-		if (OurOpeningBid < 0) { // unknown if we started or they started
+		if (OurOpeningBid < 0) { // Starts at -1 and is set to 0 or 1 depening on who has the opening bid
 			OurOpeningBid = negotiationSession.getOpponentBidHistory().size() == 0 ? 1 : 0;
 		}
 		else if (negotiationSession.getOpponentBidHistory().size() == negotiationSession.getTimeline().getTotalTime()-1) {
 			target = 1; //end with a high bid
 		}
 		
-		// TODO place this in init
+		
 		double utilityGoal = target + OurOpeningBid*dBid;
 		Range utilRange = new Range(utilityGoal, 1);
 		List<BidDetails> bidsAboveUtilitygoal = negotiationSession.getOutcomeSpace().getBidsinRange(utilRange);
@@ -111,7 +111,6 @@ public class BiddingStrategy29 extends OfferingStrategy {
 		return negotiationSession;
 	}
 
-	// TODO: what to do?
 	@Override
 	public Set<BOAparameter> getParameterSpec() {
 		Set<BOAparameter> set = new HashSet<BOAparameter>();

@@ -22,6 +22,9 @@ import genius.core.boaframework.OpponentModel;
  * while taking the opponent's preferences into account. The opponent model is
  * used to select the best bid.
  * 
+ * extended by
+ * J. Dumont, L. van der Knaap, W. Kok, R. Luijendijk, S. Uitendaal
+ * Group 29
  */
 public class OpponentStrategyModel29 extends OMStrategy {
 
@@ -31,19 +34,6 @@ public class OpponentStrategyModel29 extends OMStrategy {
 	 */
 	double updateThreshold = 1.1;
 
-	/**
-	 * Initializes the opponent model strategy. If a value for the parameter t
-	 * is given, then it is set to this value. Otherwise, the default value is
-	 * used.
-	 * 
-	 * @param negotiationSession
-	 *            state of the negotiation.
-	 * @param model
-	 *            opponent model used in conjunction with this opponent modeling
-	 *            strategy.
-	 * @param parameters
-	 *            set of parameters for this opponent model strategy.
-	 */
 	@Override
 	public void init(NegotiationSession negotiationSession, OpponentModel model, Map<String, Double> parameters) {
 		super.init(negotiationSession, model, parameters);
@@ -65,8 +55,8 @@ public class OpponentStrategyModel29 extends OMStrategy {
 	@Override
 	public BidDetails getBid(List<BidDetails> allBids) {
 		
-		// Sorteer de bids op volgorde van laag naar hoog
-		// Kies je bid afhankelijk van de tijd, verdere tijd = hogere bid
+		// Sort the bids from highest to lowest utility
+		// Choose bids dependent of time, further in time = higher bid
 
 		// 1. If there is only a single bid, return this bid
 		if (allBids.size() == 1) {
@@ -85,13 +75,10 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		double combiUtil_best = 0;
 		double ownBest = 0;
 		BidDetailsNash sendBidNash = bestBidNash;
-//		double bestBid =0;
-//		List<BidDetails> allBidsNash;
-//		Deque<String> deque = new LinkedList<>();
+
 		Deque<BidDetailsNash> allBidsNash = new LinkedList<>();
-//		ArrayList<BidDetails> allBidsNash = ArrayList<BidDetails> ();
 		double time=negotiationSession.getTime();
-//		double ownBest= evaluation;
+		
 		for (BidDetails bid : allBids) {
 			BidDetailsNash bidNash = new BidDetailsNash(bid);
 			
@@ -102,18 +89,15 @@ public class OpponentStrategyModel29 extends OMStrategy {
 			}
 			
 			double ownEval= negotiationSession.getUtilitySpace().getUtility(bidNash.getBid()) ;
-					//model.getBidEvaluation(bid.getBid());
 			combiUtil_eval = evaluation*ownEval;
 			combiUtil_best = bestUtil*ownBest;
 			
 			bidNash.setNashProduct(combiUtil_eval);
 
 			if(combiUtil_eval>=combiUtil_best) { //pick best/high utility for both parties
-			//if (evaluation > bestUtil) {
 				bestBidNash = bidNash; //best meaning highest nash product value
 				bestUtil = evaluation;
 				ownBest= model.getBidEvaluation(bidNash.getBid());
-//				System.out.println(ownBest);
 				allBidsNash.addFirst(bestBidNash);
 			}else { //bid is not better, append to list sorted on Nash product
 				allBidsNash.add(bidNash);
@@ -161,17 +145,11 @@ public class OpponentStrategyModel29 extends OMStrategy {
 		
 		// 4. Send bid
 		
-		//test
-//		System.out.println(allBids);
-//		System.out.println(allBidsNash);
-		//
-		
-		if (allWereZero) {//The opponent model did not work, therefore, offer a random bid.
+		if (allWereZero) {//The opponent model did not work, therefore, offer next bid
 			return allBids.get(r.nextInt(allBids.size()));
 		}else { //opponentmodel does work, send bid		
 			return sendBidNash.getBidDetails();		
 		}
-//		return (BidDetails) allBids;
 	}
 	/**
 	 * The opponent model may be updated, unless the time is higher than a given
