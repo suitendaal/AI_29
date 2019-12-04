@@ -21,7 +21,7 @@ def act_loop(env, agent, num_episodes):
 
             if printing:
                 print('---stage %d---' % t)
-                agent.report()
+                agent.report(env.ncol, env.nrow)
                 print("state:", state)
 
             action = agent.select_action(state)
@@ -35,15 +35,15 @@ def act_loop(env, agent, num_episodes):
             if done:
                 print("Episode finished after {} timesteps".format(t+1))
                 env.render()
-                agent.report()
+                agent.report(env.ncol, env.nrow)
                 break
 
     env.close()
 
 
 if __name__ == "__main__":
-    env = simple_grid.DrunkenWalkEnv(map_name="walkInThePark")
-    # env = simple_grid.DrunkenWalkEnv(map_name="theAlley")
+    # env = simple_grid.DrunkenWalkEnv(map_name="walkInThePark")
+    env = simple_grid.DrunkenWalkEnv(map_name="theAlley")
     num_a = env.action_space.n
 
     if type(env.observation_space)  == gym.spaces.discrete.Discrete:

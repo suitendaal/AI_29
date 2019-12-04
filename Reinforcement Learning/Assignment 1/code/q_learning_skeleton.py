@@ -42,13 +42,14 @@ class QLearner:
             # Choose best action
             return numpy.argmax(self.Qtable[state])
 
-    def report(self):
+    def report(self, grid_size_x, grid_size_y):
         """
         Function to print useful information, printed during the main loop
         """
         print("---")
-        for col in range(6):
-            for row in range(8):
-                print(f"{['X', 'v', '>', '^'][numpy.argmax(self.Qtable[8*col+row])]}", end="")
+        print("Qtable believe:")
+        for col in range(grid_size_y):
+            for row in range(grid_size_x):
+                print(f"{['<', 'v', '>', '^'][numpy.argmax(self.Qtable[grid_size_x*col+row])]}", end="")
             print()
         print("---")
