@@ -35,11 +35,14 @@ class QLearner:
         """
         Returns an action, selected based on the current state
         """
-        if random.random() > EPSILON:
+        if random.random() < EPSILON:
             # Choose a random action
             return random.randint(0, self.num_actions - 1)
+        elif max(self.Qtable[state]) == 0.0:
+            # Pick a action whose state has no value yet if there is no better action
+            return random.choice(numpy.where(self.Qtable[state] == 0.0)[0])
         else:
-            # Choose best action
+            # Pick a greedy action
             return numpy.argmax(self.Qtable[state])
 
     def report(self, grid_size_x, grid_size_y):
@@ -47,7 +50,7 @@ class QLearner:
         Function to print useful information, printed during the main loop
         """
         print("---")
-        print("Qtable believe:")
+        print("Qtable policy:")
         for col in range(grid_size_y):
             for row in range(grid_size_x):
                 print(f"{['<', 'v', '>', '^'][numpy.argmax(self.Qtable[grid_size_x*col+row])]}", end="")
