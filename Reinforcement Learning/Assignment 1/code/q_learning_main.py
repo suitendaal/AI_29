@@ -54,5 +54,3 @@ if __name__ == "__main__":
     discount = DEFAULT_DISCOUNT
     ql = QLearner(num_o, num_a, discount) #<- QTable
     act_loop(env, ql, NUM_EPISODES)
-
-
