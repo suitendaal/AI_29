@@ -24,7 +24,7 @@ def act_loop(env, agent, num_episodes):
                 agent.report(env.ncol, env.nrow)
                 print("state:", state)
 
-            action = agent.select_action(state)
+            action = agent.select_action(state, 1 - (episode / num_episodes))
             new_state, reward, done, info = env.step(action)
             if printing:
                 print("act:", action)
@@ -42,8 +42,8 @@ def act_loop(env, agent, num_episodes):
 
 
 if __name__ == "__main__":
-    # env = simple_grid.DrunkenWalkEnv(map_name="walkInThePark")
-    env = simple_grid.DrunkenWalkEnv(map_name="theAlley")
+    env = simple_grid.DrunkenWalkEnv(map_name="walkInThePark")
+    # env = simple_grid.DrunkenWalkEnv(map_name="theAlley")
     num_a = env.action_space.n
 
     if type(env.observation_space) == gym.spaces.discrete.Discrete:

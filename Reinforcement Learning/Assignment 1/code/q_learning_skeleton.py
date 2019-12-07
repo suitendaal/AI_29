@@ -8,7 +8,6 @@ DEFAULT_DISCOUNT = 0.9
 EPSILON = 0.05
 LEARNINGRATE = 0.1
 
-
 class QLearner:
     """
     Q-learning agent
@@ -31,18 +30,19 @@ class QLearner:
         else:
             self.Qtable[state][action] = (1 - LEARNINGRATE) * self.Qtable[state][action] + LEARNINGRATE * reward
 
-    def select_action(self, state):
+    def select_action(self, state, epsilon):
         """
         Returns an action, selected based on the current state
         """
-        if random.random() < EPSILON:
+        # if random.random() < EPSILON:
+        if random.random() < epsilon:
             # Choose a random action
             return random.randint(0, self.num_actions - 1)
         elif max(self.Qtable[state]) == 0.0:
-            # Pick a action whose state has no value yet if there is no better action
+            # If one of the actions in the state doesn't have a value yet, pick a random action from all unitialized
             return random.choice(numpy.where(self.Qtable[state] == 0.0)[0])
         else:
-            # Pick a greedy action
+            # Pick the best action
             return numpy.argmax(self.Qtable[state])
 
     def report(self, grid_size_x, grid_size_y):
